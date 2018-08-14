@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="col">
+    <h2>General</h2>
+
+    <div class="form">
+      <app-modules-list [(module)]="model.module"></app-modules-list>
+
+      <mat-form-field>
+        <input matInput [(ngModel)]="model.componentName" placeholder="Component Name">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-select [(value)]="model.interfacePattern" placeholder="Interface Pattern">
+          <mat-option value="list-standalone">Standalone List</mat-option>
+          <mat-option value="list-create-edit">List with Create/Edit interface</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button mat-button (click)="generate()">Generate</button>
+    </div>
+
+  </div>
+</div>

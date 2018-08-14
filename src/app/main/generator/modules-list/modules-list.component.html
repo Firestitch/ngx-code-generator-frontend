@@ -1,0 +1,8 @@
+<mat-form-field *ngIf="!loading">
+  <mat-select [value]="module" (selectionChange)="selectModule($event)" placeholder="module">
+    <mat-option *ngFor="let module of modules; let i = index" [value]="i">
+      {{ module.moduleName }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<div *ngIf="loading">Loading modules...</div>
