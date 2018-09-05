@@ -12,9 +12,9 @@ import { environment } from '../../environments/environment';
 const extraModules = [];
 if (environment.fakeBackend) {
   extraModules.push(
-    HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false }
-    )
+    // HttpClientInMemoryWebApiModule.forRoot(
+    //   InMemoryDataService, { dataEncapsulation: false }
+    // )
   );
 }
 

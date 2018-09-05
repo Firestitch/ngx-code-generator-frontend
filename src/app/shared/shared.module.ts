@@ -1,8 +1,11 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { MatFormFieldModule, MatInputModule, MatSelectModule } from '@angular/material';
+import { MatFormFieldModule, MatIconModule, MatInputModule, MatSelectModule } from '@angular/material';
 import { throwIfAlreadyLoaded } from '../core/module-import-guard';
+
+import { GeneratorPreviewComponent } from './generator-preview';
+import { DasherizePipe } from './shared';
 
 
 @NgModule({
@@ -12,6 +15,11 @@ import { throwIfAlreadyLoaded } from '../core/module-import-guard';
     MatSelectModule,
     MatFormFieldModule,
     MatInputModule,
+    MatIconModule,
+  ],
+  declarations: [
+    GeneratorPreviewComponent,
+    DasherizePipe,
   ],
   exports: [
     BrowserModule,
@@ -19,6 +27,10 @@ import { throwIfAlreadyLoaded } from '../core/module-import-guard';
     MatSelectModule,
     MatFormFieldModule,
     MatInputModule,
+    MatIconModule,
+
+    GeneratorPreviewComponent,
+    DasherizePipe,
   ]
 })
 export class SharedModule {

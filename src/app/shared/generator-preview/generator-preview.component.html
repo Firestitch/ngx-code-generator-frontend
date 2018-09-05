@@ -1,0 +1,98 @@
+<h2>Result preview</h2>
+
+<ng-container *ngIf="params?.module?.modulePath; else noModule">
+  <div class="result">
+    <div class="level">
+      <div class="folder">
+        <mat-icon>folder</mat-icon>
+        <span>{{params.module.modulePath}}</span>
+      </div>
+      <div class="level" *ngIf="params.componentName">
+        <div class="folder">
+          <mat-icon>folder</mat-icon>
+          <span>{{params.componentName | dasherize}}</span>
+        </div>
+
+        <!--<div class="level" *ngIf="params.interfacePattern === listCreationType.list">
+          <div class="file">
+            <mat-icon>save</mat-icon>
+            <span>{{params.componentName | dasherize}}.component.ts</span>
+          </div>
+          <div class="file">
+            <mat-icon>save</mat-icon>
+            <span>{{ params.componentName | dasherize }}.component.html</span>
+          </div>
+        </div>-->
+
+        <!-- Full -->
+        <div class="level" *ngIf="isFullCreateEdit">
+          <div class="folder">
+            <mat-icon>folder</mat-icon>
+            <span>create</span>
+          </div>
+          <div class="level">
+            <div class="file">
+              <mat-icon>save</mat-icon>
+              <span>create.component.ts</span>
+            </div>
+            <div class="file">
+              <mat-icon>save</mat-icon>
+              <span>create.component.html</span>
+            </div>
+          </div>
+          <div class="folder">
+            <mat-icon>folder</mat-icon>
+            <span>edit</span>
+          </div>
+          <div class="level">
+            <div class="file">
+              <mat-icon>save</mat-icon>
+              <span>edit.component.ts</span>
+            </div>
+            <div class="file">
+              <mat-icon>save</mat-icon>
+              <span>edit.component.html</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- /Full -->
+
+        <!-- Dialog -->
+        <div class="level" *ngIf="isDialog && params.singularComponentName">
+          <div class="folder">
+            <mat-icon>folder</mat-icon>
+            <span>{{ params.singularComponentName | dasherize }}</span>
+          </div>
+          <div class="level">
+            <div class="file">
+              <mat-icon>save</mat-icon>
+              <span>{{ params.singularComponentName | dasherize }}.component.ts</span>
+            </div>
+            <div class="file">
+              <mat-icon>save</mat-icon>
+              <span>{{ params.singularComponentName | dasherize }}.component.html</span>
+            </div>
+          </div>
+        </div>
+        <!-- /Dialog -->
+
+        <div class="level">
+          <div class="file">
+            <mat-icon>save</mat-icon>
+            <span>{{ params.componentName | dasherize }}.component.ts</span>
+          </div>
+          <div class="file">
+            <mat-icon>save</mat-icon>
+            <span>{{ params.componentName | dasherize }}.component.html</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #noModule>
+  <div>Chose target module</div>
+</ng-template>

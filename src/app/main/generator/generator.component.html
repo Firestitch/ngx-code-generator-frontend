@@ -1,23 +1,37 @@
 <div class="container">
   <div class="col">
-    <h2>General</h2>
+    <h2>Component Generate</h2>
 
     <div class="form">
       <app-modules-list [(module)]="model.module"></app-modules-list>
 
       <mat-form-field>
+        <mat-select [(value)]="model.interfacePattern" placeholder="Interface Pattern">
+          <mat-option [value]="listCreationType.list">Standalone List</mat-option>
+          <mat-option [value]="listCreationType.listCreateEditFull">List with Create/Edit interface (Full)</mat-option>
+          <mat-option [value]="listCreationType.listCreateEditDialog">List with Create/Edit interface (Dialog)</mat-option>
+          <mat-option [value]="listCreationType.CreateEditFull">Create/Edit interface (Full)</mat-option>
+          <mat-option [value]="listCreationType.CreateEditDialog">Create/Edit interface (Dialog)</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="model.interfacePattern !== null && withListPattern">
         <input matInput [(ngModel)]="model.componentName" placeholder="Component Name">
       </mat-form-field>
 
-      <mat-form-field>
-        <mat-select [(value)]="model.interfacePattern" placeholder="Interface Pattern">
-          <mat-option value="list-standalone">Standalone List</mat-option>
-          <mat-option value="list-create-edit">List with Create/Edit interface</mat-option>
-        </mat-select>
+      <mat-form-field *ngIf="model.interfacePattern !== null && !withListPattern">
+        <input matInput [(ngModel)]="model.componentName" placeholder="For Component Name">
+      </mat-form-field>
+
+      <mat-form-field *ngIf="isDialog">
+        <input matInput [(ngModel)]="model.singularComponentName" placeholder="Singular Component Name">
       </mat-form-field>
 
       <button mat-button (click)="generate()">Generate</button>
     </div>
 
+  </div>
+  <div class="col">
+    <generator-preview [params]="model"></generator-preview>
   </div>
 </div>
