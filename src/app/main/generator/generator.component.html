@@ -23,7 +23,7 @@
         <input matInput [(ngModel)]="model.componentName" placeholder="For Component Name">
       </mat-form-field>
 
-      <mat-form-field *ngIf="isDialog">
+      <mat-form-field *ngIf="model.interfacePattern !== listCreationType.list">
         <input matInput [(ngModel)]="model.singularComponentName" placeholder="Singular Component Name">
       </mat-form-field>
 
