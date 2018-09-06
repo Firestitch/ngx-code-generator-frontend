@@ -4,11 +4,13 @@ import { GeneratorService } from '../generator.service';
 
 @Component({
   selector: 'app-modules-list',
-  templateUrl: './modules-list.component.html'
+  templateUrl: './modules-list.component.html',
+  styleUrls: ['./modules-list.component.scss']
 })
 export class ModulesListComponent implements OnInit {
   constructor(private _generatorService: GeneratorService) {}
 
+  @Input() public required;
   @Input() public module;
   @Output() public moduleChange = new EventEmitter();
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { GeneratorService } from './generator.service';
 import { ListCreationType } from '../../../../../src/common/list-creation-type';
 
@@ -22,6 +22,7 @@ export class GeneratorComponent {
   };
 
   public listCreationType = ListCreationType;
+  public loading = false;
 
   constructor(private _generator: GeneratorService) {
   }
@@ -37,7 +38,9 @@ export class GeneratorComponent {
   }
 
   public generate() {
+    this.loading = true;
     this._generator.generateComponent(this.model).subscribe((response) => {
+      this.loading = false;
       console.log(response);
     });
   }

@@ -1,37 +1,62 @@
 <div class="container">
+
   <div class="col">
-    <h2>Component Generate</h2>
+    <mat-card>
+      <mat-card-content>
+        <h2> Component Generate </h2>
+        <form class="form" #moduleForm="ngForm">
+          <app-modules-list [(module)]="model.module" required="true"></app-modules-list>
 
-    <div class="form">
-      <app-modules-list [(module)]="model.module"></app-modules-list>
+          <mat-form-field>
+            <mat-select [(ngModel)]="model.interfacePattern" placeholder="Interface Pattern"
+                        name="interfacePattern"  #interfacePattern="ngModel" required>
+              <mat-option [value]="listCreationType.list">Standalone List</mat-option>
+              <mat-option [value]="listCreationType.listCreateEditFull">List with Create/Edit interface (Full)
+              </mat-option>
+              <mat-option [value]="listCreationType.listCreateEditDialog">List with Create/Edit interface (Dialog)
+              </mat-option>
+              <mat-option [value]="listCreationType.CreateEditFull">Create/Edit interface (Full)</mat-option>
+              <mat-option [value]="listCreationType.CreateEditDialog">Create/Edit interface (Dialog)</mat-option>
+            </mat-select>
+          </mat-form-field>
 
-      <mat-form-field>
-        <mat-select [(value)]="model.interfacePattern" placeholder="Interface Pattern">
-          <mat-option [value]="listCreationType.list">Standalone List</mat-option>
-          <mat-option [value]="listCreationType.listCreateEditFull">List with Create/Edit interface (Full)</mat-option>
-          <mat-option [value]="listCreationType.listCreateEditDialog">List with Create/Edit interface (Dialog)</mat-option>
-          <mat-option [value]="listCreationType.CreateEditFull">Create/Edit interface (Full)</mat-option>
-          <mat-option [value]="listCreationType.CreateEditDialog">Create/Edit interface (Dialog)</mat-option>
-        </mat-select>
-      </mat-form-field>
+          <mat-form-field *ngIf="model.interfacePattern !== null && withListPattern">
+            <input matInput [(ngModel)]="model.singularComponentName" placeholder="Component Name"
+                   name="componentName" #componentName="ngModel" required>
+            <mat-error *ngIf="componentName.invalid"> Component Name is required </mat-error>
+          </mat-form-field>
 
-      <mat-form-field *ngIf="model.interfacePattern !== null && withListPattern">
-        <input matInput [(ngModel)]="model.componentName" placeholder="Component Name">
-      </mat-form-field>
+          <mat-form-field *ngIf="model.interfacePattern !== null && !withListPattern">
+            <input matInput [(ngModel)]="model.componentName" placeholder="For Component Name"
+                   name="componentName" #componentName="ngModel"  required>
+            <mat-error *ngIf="componentName.invalid"> Component Name is required </mat-error>
+          </mat-form-field>
 
-      <mat-form-field *ngIf="model.interfacePattern !== null && !withListPattern">
-        <input matInput [(ngModel)]="model.componentName" placeholder="For Component Name">
-      </mat-form-field>
-
-      <mat-form-field *ngIf="model.interfacePattern !== listCreationType.list">
-        <input matInput [(ngModel)]="model.singularComponentName" placeholder="Singular Component Name">
-      </mat-form-field>
-
-      <button mat-button (click)="generate()">Generate</button>
-    </div>
-
+          <mat-form-field *ngIf="model.interfacePattern !== listCreationType.list">
+            <input matInput [(ngModel)]="model.singularComponentName" placeholder="Singular Component Name"
+                   name="singularComponentName" #singularComponentName="ngModel" required>
+            <mat-error *ngIf="singularComponentName.invalid"> Component Name is required </mat-error>
+          </mat-form-field>
+        </form>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button color="primary"
+                (click)="generate()"
+                [disabled]="loading || moduleForm.invalid || !model.module">GENERATE</button>
+        <div class="spinner" *ngIf="loading">
+          <mat-spinner [diameter]="22"></mat-spinner>
+        </div>
+      </mat-card-actions>
+    </mat-card>
   </div>
+
   <div class="col">
-    <generator-preview [params]="model"></generator-preview>
+    <mat-card>
+      <mat-card-content>
+        <h2>Result Preview </h2>
+        <generator-preview [params]="model"></generator-preview>
+      </mat-card-content>
+    </mat-card>
   </div>
+
 </div>
