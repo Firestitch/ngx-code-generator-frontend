@@ -21,7 +21,7 @@
           </mat-form-field>
 
           <mat-form-field *ngIf="model.interfacePattern !== null && withListPattern">
-            <input matInput [(ngModel)]="model.singularComponentName" placeholder="Component Name"
+            <input matInput [(ngModel)]="model.componentName" placeholder="Component Name"
                    name="componentName" #componentName="ngModel" required>
             <mat-error *ngIf="componentName.invalid"> Component Name is required </mat-error>
           </mat-form-field>
