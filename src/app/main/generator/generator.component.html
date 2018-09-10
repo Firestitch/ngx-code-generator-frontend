@@ -1,9 +1,12 @@
 <div class="container">
-
+  <div class="row">
   <div class="col">
     <mat-card>
       <mat-card-content>
         <h2> Component Generate </h2>
+        <div class="mat-error" *ngIf="error">
+          {{error}}
+        </div>
         <form class="form" #moduleForm="ngForm">
           <app-modules-list [(module)]="model.module" required="true"></app-modules-list>
 
@@ -57,6 +60,18 @@
         <generator-preview [params]="model"></generator-preview>
       </mat-card-content>
     </mat-card>
+  </div>
+  </div>
+
+  <div class="row" *ngIf="resultLogs">
+    <div class="col">
+      <mat-card>
+        <mat-card-content>
+          <h2> Logs Result </h2>
+          <generator-logs [logs]="resultLogs"></generator-logs>
+        </mat-card-content>
+      </mat-card>
+    </div>
   </div>
 
 </div>

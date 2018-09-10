@@ -23,6 +23,8 @@ export class GeneratorComponent {
 
   public listCreationType = ListCreationType;
   public loading = false;
+  public error: string;
+  public resultLogs: string;
 
   constructor(private _generator: GeneratorService) {
   }
@@ -39,9 +41,14 @@ export class GeneratorComponent {
 
   public generate() {
     this.loading = true;
-    this._generator.generateComponent(this.model).subscribe((response) => {
-      this.loading = false;
-      console.log(response);
-    });
+    this._generator.generateComponent(this.model).subscribe(
+      (response: { message: string }) => {
+        this.loading = false;
+        this.resultLogs = response.message;
+      },
+      (error) => {
+        this.loading = false;
+        this.error = error.body.error;
+      });
   }
 }
