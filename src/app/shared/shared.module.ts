@@ -9,8 +9,8 @@ import {
 import { throwIfAlreadyLoaded } from '../core/module-import-guard';
 
 import { GeneratorPreviewComponent } from './generator-preview';
+import { GeneratorLogsComponent, HighlightStatusDirective } from './generator-logs';
 import { DasherizePipe } from './shared';
-
 
 @NgModule({
   imports: [
@@ -26,6 +26,8 @@ import { DasherizePipe } from './shared';
   ],
   declarations: [
     GeneratorPreviewComponent,
+    GeneratorLogsComponent,
+    HighlightStatusDirective,
     DasherizePipe,
   ],
   exports: [
@@ -40,6 +42,8 @@ import { DasherizePipe } from './shared';
     MatProgressSpinnerModule,
 
     GeneratorPreviewComponent,
+    GeneratorLogsComponent,
+    HighlightStatusDirective,
     DasherizePipe,
   ]
 })
