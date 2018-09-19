@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { GeneratorService } from '../generator.service';
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { ModuleInterface } from '../../../shared/shared/interfaces/';
 
 
 @Component({
@@ -7,24 +7,23 @@ import { GeneratorService } from '../generator.service';
   templateUrl: './modules-list.component.html',
   styleUrls: ['./modules-list.component.scss']
 })
-export class ModulesListComponent implements OnInit {
-  constructor(private _generatorService: GeneratorService) {}
+export class ModulesListComponent implements OnChanges {
+  constructor() {}
 
   @Input() public required;
-  @Input() public module;
+  @Input() public modules: ModuleInterface[];
+  @Input() public module: ModuleInterface;
   @Output() public moduleChange = new EventEmitter();
 
-  public modules = [];
   public loading = true;
 
-  public ngOnInit() {
-    this._generatorService.listOfModules().subscribe((response: any) => {
-      this.modules = response.modules;
+  public ngOnChanges(changes) {
+    if (changes.modules && changes.modules !== null) {
       this.loading = false;
-    });
+    }
   }
 
   public selectModule(event) {
-    this.moduleChange.next(this.modules[event.value]);
+    this.moduleChange.emit(this.module);
   }
 }

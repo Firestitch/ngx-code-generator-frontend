@@ -1,0 +1,15 @@
+<mat-form-field *ngIf="!loading">
+  <mat-select [(ngModel)]="service" (selectionChange)="selectService($event)" placeholder="Service" required="required">
+    <mat-option [value]="'new'">Create Service</mat-option>
+    <mat-optgroup *ngFor="let group of services" [label]="group.module">
+      <mat-option *ngFor="let service of group.services" [value]="service">
+        {{service.singularName}}
+      </mat-option>
+    </mat-optgroup>
+  </mat-select>
+</mat-form-field>
+<div *ngIf="loading">Loading services...
+  <div class="spinner">
+    <mat-spinner [diameter]="13"></mat-spinner>
+  </div>
+</div>

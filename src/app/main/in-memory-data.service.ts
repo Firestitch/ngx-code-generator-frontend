@@ -17,7 +17,18 @@ export class InMemoryDataService implements InMemoryDbService {
             'moduleFullPath': '/src/app/app.module.ts',
             'moduleName': 'app.module.ts'
           }
-        ]
+        ],
+      services:
+      [
+        {
+          'serviceName': 'api.service.ts',
+          'servicePath': '/src/app/module1/services'
+        },
+        {
+          'serviceName': 'account.service.ts',
+          'servicePath': '/src/app/module1/shared/services'
+        }
+      ]
     };
 
     return { modules };

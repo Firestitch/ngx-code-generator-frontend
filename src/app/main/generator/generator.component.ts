@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GeneratorService } from './generator.service';
 import { ListCreationType } from '../../../../../src/common/list-creation-type';
+import { ModuleInterface } from '../../shared/shared/interfaces/';
 
 
 @Component({
@@ -13,18 +14,26 @@ import { ListCreationType } from '../../../../../src/common/list-creation-type';
     GeneratorService,
   ]
 })
-export class GeneratorComponent {
+export class GeneratorComponent implements OnInit {
   public model = {
     module: null,
-    componentName: null,
+    service: null,
     interfacePattern: null,
-    singularComponentName: null
+    singularComponentName: null,
+    pluralComponentName: null,
+    singularModelName: null,
+    pluralModelName: null
   };
 
   public listCreationType = ListCreationType;
   public loading = false;
   public error: string;
   public resultLogs: string;
+  public modules: ModuleInterface[];
+  public services;
+
+  private _pluralModelEditable = true;
+  private _singularModelEditable = true;
 
   constructor(private _generator: GeneratorService) {
   }
@@ -39,6 +48,16 @@ export class GeneratorComponent {
     return pattern !== ListCreationType.CreateEditFull && pattern !== ListCreationType.CreateEditDialog;
   }
 
+  public ngOnInit() {
+    this._generator.listOfModules().subscribe((response: any) => {
+      this.modules = response.modules;
+    });
+
+    this._generator.listOfServices().subscribe((response: any) => {
+      this.services = response.services;
+    });
+  }
+
   public generate() {
     this.loading = true;
     this._generator.generateComponent(this.model).subscribe(
@@ -51,4 +70,29 @@ export class GeneratorComponent {
         this.error = error.body.error;
       });
   }
+
+  public changedPluralComponent() {
+    if (this._pluralModelEditable) {
+      this.model.pluralModelName = this.model.pluralComponentName;
+    }
+  }
+
+  public changedSingularComponent() {
+    if (this._singularModelEditable) {
+      this.model.singularModelName = this.model.singularComponentName;
+    }
+  }
+
+  public onSingularModelBlur() {
+    if (this.model.singularModelName && this.model.singularComponentName !== this.model.singularModelName) {
+      this._singularModelEditable = false;
+    }
+  }
+
+  public onPluralModelBlur() {
+    if (this.model.pluralModelName && this.model.pluralComponentName !== this.model.pluralModelName) {
+      this._pluralModelEditable = false;
+    }
+  }
+
 }

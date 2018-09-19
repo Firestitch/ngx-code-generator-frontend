@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { of } from 'rxjs/internal/observable/of';
 
 
 @Injectable()
@@ -12,7 +11,15 @@ export class GeneratorService {
     return this._http.get('/modules');
   }
 
+  public listOfServices() {
+    return this._http.get('/services');
+  }
+
   public generateComponent(params) {
     return this._http.post('/generate', params);
+  }
+
+  public generateService(params) {
+    return this._http.post('/generate/service', params);
   }
 }

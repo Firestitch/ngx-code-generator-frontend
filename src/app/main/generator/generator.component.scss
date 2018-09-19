@@ -21,6 +21,12 @@
   &* {
    width: 100%;
   }
+
+  .group {
+    mat-form-field {
+      min-width: 50%;
+    }
+  }
 }
 
 .spinner {

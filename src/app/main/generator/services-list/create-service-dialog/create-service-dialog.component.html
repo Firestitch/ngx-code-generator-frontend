@@ -1,0 +1,30 @@
+<!--<mat-dialog-title> Create Service </mat-dialog-title>-->
+<!--<mat-dialog-content>-->
+<div class="container">
+  <h2> Create Service </h2>
+    <!--<form>-->
+  <div class="form">
+      <app-modules-list [(module)]="model.module" [modules]="data.modules" required="true"></app-modules-list>
+      <mat-form-field>
+        <mat-select [(ngModel)]="model.subdirectory" placeholder="Path">
+          <mat-option [value]="'/services'">/services</mat-option>
+          <mat-option [value]="'/shared/services'">/shared/services</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Singular Name" [(ngModel)]="model.singularName">
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Plural Name" [(ngModel)]="model.pluralName">
+      </mat-form-field>
+    <!--</form>-->
+  <!--</mat-dialog-content>-->
+  <!--<mat-dialog-actions>-->
+    <button mat-raised-button color="primary" (click)="generate()">CREATE</button>
+    <button mat-button mat-dialog-close>CANCEL</button>
+  <!--</mat-dialog-actions>-->
+  </div>
+
+</div>
