@@ -5,10 +5,10 @@
         <mat-icon>folder</mat-icon>
         <span>{{params.module.modulePath}}</span>
       </div>
-      <div class="level" *ngIf="params.componentName">
+      <div class="level" *ngIf="params.pluralComponentName">
         <div class="folder">
           <mat-icon>folder</mat-icon>
-          <span>{{params.componentName | dasherize}}</span>
+          <span>{{params.pluralComponentName | dasherize}}</span>
         </div>
 
         <!--<div class="level" *ngIf="params.interfacePattern === listCreationType.list">
@@ -45,11 +45,11 @@
         <div class="level">
           <div class="file">
             <mat-icon>save</mat-icon>
-            <span>{{ params.componentName | dasherize }}.component.ts</span>
+            <span>{{ params.pluralComponentName | dasherize }}.component.ts</span>
           </div>
           <div class="file">
             <mat-icon>save</mat-icon>
-            <span>{{ params.componentName | dasherize }}.component.html</span>
+            <span>{{ params.pluralComponentName | dasherize }}.component.html</span>
           </div>
         </div>
 
