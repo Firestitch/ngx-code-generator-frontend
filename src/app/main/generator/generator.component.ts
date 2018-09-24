@@ -3,6 +3,7 @@ import { GeneratorService } from './generator.service';
 import { ListCreationType } from '../../../../../src/common/list-creation-type';
 import { ModuleInterface } from '../../shared/shared/interfaces/';
 
+import * as pluralize from 'pluralize';
 
 @Component({
   selector: 'app-generator',
@@ -34,6 +35,7 @@ export class GeneratorComponent implements OnInit {
 
   private _pluralModelEditable = true;
   private _singularModelEditable = true;
+  private _pluralComponentEditable = true;
 
   constructor(private _generator: GeneratorService) {
   }
@@ -78,8 +80,19 @@ export class GeneratorComponent implements OnInit {
   }
 
   public changedSingularComponent() {
+    if (this._pluralComponentEditable) {
+      this.model.pluralComponentName = pluralize(this.model.singularComponentName);
+      this.model.pluralModelName = this.model.pluralComponentName;
+    }
+
     if (this._singularModelEditable) {
       this.model.singularModelName = this.model.singularComponentName;
+    }
+  }
+
+  public onPluralComponentBlur() {
+    if (this.model.pluralComponentName && pluralize(this.model.singularComponentName) !== this.model.pluralComponentName) {
+      this._pluralComponentEditable = false;
     }
   }
 

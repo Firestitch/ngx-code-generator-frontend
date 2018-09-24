@@ -17,11 +17,15 @@ export class GeneratorPreviewComponent {
 
   get isFullCreateEdit() {
     return this.params.interfacePattern === this.listCreationType.listCreateEditFull ||
-      this.params.interfacePattern === this.listCreationType.CreateEditFull
+      this.params.interfacePattern === this.listCreationType.CreateEditFull;
   }
 
   get isDialog() {
     const pattern = this.params.interfacePattern;
     return pattern === ListCreationType.listCreateEditDialog || pattern === ListCreationType.CreateEditDialog;
+  }
+
+  get serviceSubdirectory() {
+    return this.params.service.servicePath.indexOf('shared/services') !== -1 ? 'shared/services' : 'services';
   }
 }

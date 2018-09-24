@@ -1,11 +1,14 @@
-<!--<mat-dialog-title> Create Service </mat-dialog-title>-->
-<!--<mat-dialog-content>-->
 <div class="container">
-  <h2> Create Service </h2>
+  <h2 mat-dialog-title> Create Service </h2>
     <!--<form>-->
   <div class="form">
-      <app-modules-list [(module)]="model.module" [modules]="data.modules" required="true"></app-modules-list>
-      <mat-form-field>
+      <app-modules-list
+        [(module)]="model.module"
+        (moduleChange)="moduleChanged($event)"
+        [modules]="data.modules"
+        required="true"></app-modules-list>
+
+      <mat-form-field *ngIf="!hidePath">
         <mat-select [(ngModel)]="model.subdirectory" placeholder="Path">
           <mat-option [value]="'/services'">/services</mat-option>
           <mat-option [value]="'/shared/services'">/shared/services</mat-option>
@@ -13,18 +16,18 @@
       </mat-form-field>
 
       <mat-form-field>
-        <input matInput placeholder="Singular Name" [(ngModel)]="model.singularName">
+        <input matInput placeholder="Singular Name"
+               [(ngModel)]="model.singularName"
+               (ngModelChange)="changedSingularName()">
       </mat-form-field>
 
       <mat-form-field>
-        <input matInput placeholder="Plural Name" [(ngModel)]="model.pluralName">
+        <input matInput placeholder="Plural Name"
+               [(ngModel)]="model.pluralName"
+               (blur)="onPluralNameBlur()">
       </mat-form-field>
     <!--</form>-->
-  <!--</mat-dialog-content>-->
-  <!--<mat-dialog-actions>-->
-    <button mat-raised-button color="primary" (click)="generate()">CREATE</button>
-    <button mat-button mat-dialog-close>CANCEL</button>
-  <!--</mat-dialog-actions>-->
   </div>
-
+  <button mat-raised-button color="primary" (click)="generate()">CREATE</button>
+  <button mat-button mat-dialog-close>CANCEL</button>
 </div>

@@ -23,8 +23,16 @@
   }
 
   .group {
+    display: flex;
+    flex-direction: row;
+
     mat-form-field {
-      min-width: 50%;
+      flex: 50%;
+      width: 100%;
+
+      &:last-child {
+        margin-left: 10px;
+      }
     }
   }
 }

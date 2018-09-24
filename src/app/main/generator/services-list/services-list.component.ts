@@ -37,7 +37,7 @@ export class ServicesListComponent implements OnChanges {
   public openDialog() {
     const dialogRef = this._dialog.open(CreateServiceDialogComponent, {
       width: '400px',
-      data: { modules: this.modules }
+      data: { modules: this.modules, services: this.services }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -54,7 +54,6 @@ export class ServicesListComponent implements OnChanges {
         this.services.push({ module: result.module.moduleName, services: [result]});
       }
 
-      this.service = result;
       this.serviceChange.emit(result);
     });
   }

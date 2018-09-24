@@ -22,4 +22,8 @@ export class GeneratorService {
   public generateService(params) {
     return this._http.post('/generate/service', params);
   }
+
+  public generateModule(params) {
+    return this._http.post('/generate/module', params);
+  }
 }

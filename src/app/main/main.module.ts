@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
-import { GeneratorComponent, ModulesListComponent } from './generator';
+import { GeneratorComponent, ModulesListComponent, CreateModuleDialogComponent,
+        CreateServiceDialogComponent, ServicesListComponent} from './generator';
 import { SharedModule } from '../shared';
-import { CreateServiceDialogComponent, ServicesListComponent } from './generator/services-list/';
 
 
 @NgModule({
@@ -13,9 +13,11 @@ import { CreateServiceDialogComponent, ServicesListComponent } from './generator
     ModulesListComponent,
     ServicesListComponent,
     CreateServiceDialogComponent,
+    CreateModuleDialogComponent,
   ],
   entryComponents: [
-    CreateServiceDialogComponent
+    CreateServiceDialogComponent,
+    CreateModuleDialogComponent
   ]
 })
 export class MainModule {

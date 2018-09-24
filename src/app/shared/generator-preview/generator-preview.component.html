@@ -30,11 +30,11 @@
           </div>
           <div class="level">
             <div class="file">
-              <mat-icon>save</mat-icon>
+              <mat-icon>insert_drive_file</mat-icon>
               <span>{{ params.singularComponentName }}.component.ts</span>
             </div>
             <div class="file">
-              <mat-icon>save</mat-icon>
+              <mat-icon>insert_drive_file</mat-icon>
               <span>{{ params.singularComponentName }}.component.html</span>
             </div>
           </div>
@@ -44,12 +44,27 @@
 
         <div class="level">
           <div class="file">
-            <mat-icon>save</mat-icon>
+            <mat-icon>insert_drive_file</mat-icon>
             <span>{{ params.pluralComponentName | dasherize }}.component.ts</span>
           </div>
           <div class="file">
-            <mat-icon>save</mat-icon>
+            <mat-icon>insert_drive_file</mat-icon>
             <span>{{ params.pluralComponentName | dasherize }}.component.html</span>
+          </div>
+        </div>
+
+        <!-- /Service -->
+
+        <div class="level" *ngIf="params.service">
+          <div class="folder">
+            <mat-icon>folder</mat-icon>
+            <span>{{ serviceSubdirectory }}</span>
+          </div>
+          <div class="level">
+            <div class="file">
+              <mat-icon>insert_drive_file</mat-icon>
+              <span>{{ params.service.singularName }}</span>
+            </div>
           </div>
         </div>
 

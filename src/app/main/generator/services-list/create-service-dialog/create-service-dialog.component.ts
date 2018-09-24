@@ -1,8 +1,9 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { GeneratorService } from '../../generator.service';
 import { ModuleInterface } from '../../../../shared/shared/interfaces/';
 
+import * as pluralize from 'pluralize';
 
 @Component({
   selector: 'app-create-service-dialog',
@@ -13,7 +14,7 @@ import { ModuleInterface } from '../../../../shared/shared/interfaces/';
   ]
 })
 
-export class CreateServiceDialogComponent {
+export class CreateServiceDialogComponent implements OnInit {
   public model = {
     module: null,
     subdirectory: null,
@@ -21,9 +22,17 @@ export class CreateServiceDialogComponent {
     pluralName: null
   };
 
+  public hidePath = false;
+
+  private _pluralNameEditable = true;
+
   constructor(public dialogRef: MatDialogRef<CreateServiceDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: { modules: ModuleInterface[] },
+              @Inject(MAT_DIALOG_DATA) public data: { modules: ModuleInterface[], services: any[] },
               private _generatorService: GeneratorService) {
+  }
+
+  public ngOnInit() {
+    console.log(this.data.services);
   }
 
   public generate() {
@@ -36,6 +45,38 @@ export class CreateServiceDialogComponent {
 
       this.dialogRef.close(service);
     });
+  }
+
+  public changedSingularName() {
+    if (this._pluralNameEditable) {
+      this.model.pluralName = pluralize(this.model.singularName);
+    }
+  }
+
+  public onPluralNameBlur() {
+    if (this.model.pluralName && pluralize(this.model.singularName) !== this.model.pluralName) {
+      this._pluralNameEditable = false;
+    }
+  }
+
+  public moduleChanged() {
+    this.setDefaultSubDirectory();
+  }
+
+  /**
+   * Hack for set default path
+   * If module has services hide path dropdown and set default path from first elem
+   * @todo
+   */
+  public setDefaultSubDirectory() {
+    const moduleServices = this.data.services.find((s) => s.module === this.model.module.moduleName);
+    this.hidePath = !!moduleServices.services.length;
+
+    if (moduleServices.services.length) {
+      this.model.subdirectory = moduleServices.services[0].servicePath.indexOf('shared/services') !== -1
+        ? '/shared/services'
+        : '/services';
+    }
   }
 
 }

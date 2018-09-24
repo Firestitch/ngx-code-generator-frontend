@@ -1,0 +1,14 @@
+<div class="container">
+  <h2 mat-dialog-title> Create Module </h2>
+  <!--<form>-->
+  <div class="form">
+    <mat-form-field>
+      <input matInput placeholder="Module Name"
+             [(ngModel)]="model.name">
+    </mat-form-field>
+
+    <!--</form>-->
+  </div>
+  <button mat-raised-button color="primary" (click)="generate()">CREATE</button>
+  <button mat-button mat-dialog-close>CANCEL</button>
+</div>
