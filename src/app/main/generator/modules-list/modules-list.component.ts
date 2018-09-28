@@ -20,7 +20,7 @@ export class ModulesListComponent implements OnChanges {
   public loading = true;
 
   public ngOnChanges(changes) {
-    if (changes.modules && changes.modules !== null) {
+    if (changes.modules && changes.modules.currentValue !== void 0) {
       this.loading = false;
     }
   }

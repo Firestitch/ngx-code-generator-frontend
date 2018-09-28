@@ -37,6 +37,10 @@
               <mat-icon>insert_drive_file</mat-icon>
               <span>{{ params.singularComponentName }}.component.html</span>
             </div>
+            <div class="file">
+              <mat-icon>insert_drive_file</mat-icon>
+              <span>{{ params.singularComponentName }}.component.scss</span>
+            </div>
           </div>
         </div>
 
@@ -51,11 +55,14 @@
             <mat-icon>insert_drive_file</mat-icon>
             <span>{{ params.pluralComponentName | dasherize }}.component.html</span>
           </div>
+          <div class="file">
+            <mat-icon>insert_drive_file</mat-icon>
+            <span>{{ params.pluralComponentName | dasherize }}.component.scss</span>
+          </div>
         </div>
 
         <!-- /Service -->
-
-        <div class="level" *ngIf="params.service">
+        <div class="level" *ngIf="params.service && params.service.type === 'new'">
           <div class="folder">
             <mat-icon>folder</mat-icon>
             <span>{{ serviceSubdirectory }}</span>

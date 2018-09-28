@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import {
   MatFormFieldModule, MatInputModule, MatProgressSpinnerModule,
   MatSelectModule, MatButtonModule, MatCardModule, MatIconModule,
-  MatDialogModule,
+  MatDialogModule, MatCheckboxModule,
 } from '@angular/material';
 
 import { throwIfAlreadyLoaded } from '../core/module-import-guard';
@@ -25,6 +25,7 @@ import { DasherizePipe } from './shared';
     MatCardModule,
     MatProgressSpinnerModule,
     MatDialogModule,
+    MatCheckboxModule,
   ],
   declarations: [
     GeneratorPreviewComponent,
@@ -43,6 +44,7 @@ import { DasherizePipe } from './shared';
     MatCardModule,
     MatProgressSpinnerModule,
     MatDialogModule,
+    MatCheckboxModule,
 
     GeneratorPreviewComponent,
     GeneratorLogsComponent,

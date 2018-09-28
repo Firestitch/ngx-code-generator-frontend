@@ -21,7 +21,7 @@ export class ServicesListComponent implements OnChanges {
   public loading = true;
 
   public ngOnChanges(changes) {
-    if (changes.services && !changes.services.firstChange) {
+    if (changes.services && changes.services !== void 0) {
       this.loading = false;
     }
   }

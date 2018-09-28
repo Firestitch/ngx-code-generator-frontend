@@ -24,8 +24,6 @@ export class CreateServiceDialogComponent implements OnInit {
 
   public hidePath = false;
 
-  private _pluralNameEditable = true;
-
   constructor(public dialogRef: MatDialogRef<CreateServiceDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: { modules: ModuleInterface[], services: any[] },
               private _generatorService: GeneratorService) {
@@ -40,7 +38,8 @@ export class CreateServiceDialogComponent implements OnInit {
       const service = {
         servicePath: `${this.model.module.modulePath}${this.model.subdirectory}`,
         singularName: this.model.singularName + '.service.ts',
-        module: this.model.module
+        module: this.model.module,
+        type: 'new'
       };
 
       this.dialogRef.close(service);
@@ -48,15 +47,7 @@ export class CreateServiceDialogComponent implements OnInit {
   }
 
   public changedSingularName() {
-    if (this._pluralNameEditable) {
-      this.model.pluralName = pluralize(this.model.singularName);
-    }
-  }
-
-  public onPluralNameBlur() {
-    if (this.model.pluralName && pluralize(this.model.singularName) !== this.model.pluralName) {
-      this._pluralNameEditable = false;
-    }
+    this.model.pluralName = pluralize(this.model.singularName);
   }
 
   public moduleChanged() {

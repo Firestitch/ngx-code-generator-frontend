@@ -35,7 +35,6 @@ export class GeneratorComponent implements OnInit {
 
   private _pluralModelEditable = true;
   private _singularModelEditable = true;
-  private _pluralComponentEditable = true;
 
   constructor(private _generator: GeneratorService) {
   }
@@ -50,13 +49,34 @@ export class GeneratorComponent implements OnInit {
     return pattern !== ListCreationType.CreateEditFull && pattern !== ListCreationType.CreateEditDialog;
   }
 
+  get isTieredPattern() {
+    const pattern  = this.model.interfacePattern;
+    return pattern !== ListCreationType.list && !this.isBasicPattern;
+  }
+
+  get isBasicPattern() {
+    const pattern  = this.model.interfacePattern;
+    return pattern === ListCreationType.Basic;
+  }
+
+  get isFormValid() {
+    const pattern = this.model.interfacePattern;
+    if (pattern === ListCreationType.Basic) {
+      return !this.model.module;
+    } else {
+      return !this.model.service || !this.model.service;
+    }
+  }
+
   public ngOnInit() {
     this._generator.listOfModules().subscribe((response: any) => {
       this.modules = response.modules;
+      this.sortModules();
     });
 
     this._generator.listOfServices().subscribe((response: any) => {
       this.services = response.services;
+      this.sortServices();
     });
   }
 
@@ -69,7 +89,7 @@ export class GeneratorComponent implements OnInit {
       },
       (error) => {
         this.loading = false;
-        this.error = error.body.error;
+        this.error = error.message || error.body.error;
       });
   }
 
@@ -80,19 +100,11 @@ export class GeneratorComponent implements OnInit {
   }
 
   public changedSingularComponent() {
-    if (this._pluralComponentEditable) {
-      this.model.pluralComponentName = pluralize(this.model.singularComponentName);
-      this.model.pluralModelName = this.model.pluralComponentName;
-    }
+    this.model.pluralComponentName = pluralize(this.model.singularComponentName);
+    this.model.pluralModelName = this.model.pluralComponentName;
 
     if (this._singularModelEditable) {
       this.model.singularModelName = this.model.singularComponentName;
-    }
-  }
-
-  public onPluralComponentBlur() {
-    if (this.model.pluralComponentName && pluralize(this.model.singularComponentName) !== this.model.pluralComponentName) {
-      this._pluralComponentEditable = false;
     }
   }
 
@@ -108,4 +120,39 @@ export class GeneratorComponent implements OnInit {
     }
   }
 
+  /**
+   * Sort modules in alphabetic order
+   */
+  private sortModules() {
+    this.modules = this.sortAlphabetically(this.modules, 'moduleName');
+  }
+
+  /**
+   * Sort services in alphabetic order
+   */
+  private sortServices() {
+
+   this.services = this.sortAlphabetically(this.services, 'module');
+
+    this.services.forEach((groupByModule) => {
+      groupByModule.services = this.sortAlphabetically(groupByModule.services, 'singularName');
+    });
+  }
+
+  /**
+   * Sort array in alphabetic order
+   */
+  private sortAlphabetically(array, field) {
+    array.sort((a, b) => {
+      if (a[field] < b[field]) {
+        return -1;
+      }
+      if (a[field] > b[field]) {
+        return 1;
+      }
+      return 0;
+    });
+
+    return array;
+  }
 }

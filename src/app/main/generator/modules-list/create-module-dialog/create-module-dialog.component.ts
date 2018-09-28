@@ -6,6 +6,7 @@ import { ModuleInterface } from '../../../../shared/shared/interfaces/';
 @Component({
   selector: 'app-create-module-dialog',
   templateUrl: './create-module-dialog.component.html',
+  styleUrls: ['./create-module-dialog.component.scss'],
   providers: [
     GeneratorService
   ]
@@ -14,7 +15,8 @@ import { ModuleInterface } from '../../../../shared/shared/interfaces/';
 export class CreateModuleDialogComponent implements OnInit {
   public model = {
     module: null,
-    name: null
+    name: null,
+    routing: true
   };
 
   constructor(public dialogRef: MatDialogRef<CreateModuleDialogComponent>,

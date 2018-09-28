@@ -7,6 +7,10 @@
              [(ngModel)]="model.name">
     </mat-form-field>
 
+    <section>
+      <mat-checkbox [(ngModel)]="model.routing">Add routing file</mat-checkbox>
+    </section>
+
     <!--</form>-->
   </div>
   <button mat-raised-button color="primary" (click)="generate()">CREATE</button>
