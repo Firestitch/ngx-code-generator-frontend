@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { GeneratorService } from '../../generator.service';
 import { ModuleInterface } from '../../../../shared/shared/interfaces/';
@@ -14,7 +14,7 @@ import * as pluralize from 'pluralize';
   ]
 })
 
-export class CreateServiceDialogComponent implements OnInit {
+export class CreateServiceDialogComponent {
   public model = {
     module: null,
     subdirectory: null,
@@ -27,10 +27,6 @@ export class CreateServiceDialogComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<CreateServiceDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: { modules: ModuleInterface[], services: any[] },
               private _generatorService: GeneratorService) {
-  }
-
-  public ngOnInit() {
-    console.log(this.data.services);
   }
 
   public generate() {
@@ -61,12 +57,14 @@ export class CreateServiceDialogComponent implements OnInit {
    */
   public setDefaultSubDirectory() {
     const moduleServices = this.data.services.find((s) => s.module === this.model.module.moduleName);
-    this.hidePath = !!moduleServices.services.length;
+    this.hidePath = moduleServices && !!moduleServices.services.length;
 
-    if (moduleServices.services.length) {
+    if (this.hidePath) {
       this.model.subdirectory = moduleServices.services[0].servicePath.indexOf('shared/services') !== -1
         ? '/shared/services'
         : '/services';
+    } else {
+      this.model.subdirectory = null;
     }
   }
 
