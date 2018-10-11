@@ -1,7 +1,7 @@
 <mat-form-field *ngIf="!loading">
   <mat-select [(ngModel)]="module" (selectionChange)="selectModule($event)" placeholder="Module" required="required">
     <mat-option [value]="'new'">Create Module</mat-option>
-    <mat-option *ngFor="let m of modules; let i = index" [value]="m">
+    <mat-option *ngFor="let m of modules | orderBy: 'moduleName'" [value]="m">
       {{ m.moduleName }}
     </mat-option>
   </mat-select>

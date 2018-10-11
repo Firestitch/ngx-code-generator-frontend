@@ -71,12 +71,10 @@ export class GeneratorComponent implements OnInit {
   public ngOnInit() {
     this._generator.listOfModules().subscribe((response: any) => {
       this.modules = response.modules;
-      this.sortModules();
     });
 
     this._generator.listOfServices().subscribe((response: any) => {
       this.services = response.services;
-      this.sortServices();
     });
   }
 
@@ -86,6 +84,7 @@ export class GeneratorComponent implements OnInit {
       (response: { message: string }) => {
         this.loading = false;
         this.resultLogs = response.message;
+        this.error = '';
       },
       (error) => {
         this.loading = false;
@@ -118,41 +117,5 @@ export class GeneratorComponent implements OnInit {
     if (this.model.pluralModelName && this.model.pluralComponentName !== this.model.pluralModelName) {
       this._pluralModelEditable = false;
     }
-  }
-
-  /**
-   * Sort modules in alphabetic order
-   */
-  private sortModules() {
-    this.modules = this.sortAlphabetically(this.modules, 'moduleName');
-  }
-
-  /**
-   * Sort services in alphabetic order
-   */
-  private sortServices() {
-
-   this.services = this.sortAlphabetically(this.services, 'module');
-
-    this.services.forEach((groupByModule) => {
-      groupByModule.services = this.sortAlphabetically(groupByModule.services, 'singularName');
-    });
-  }
-
-  /**
-   * Sort array in alphabetic order
-   */
-  private sortAlphabetically(array, field) {
-    array.sort((a, b) => {
-      if (a[field] < b[field]) {
-        return -1;
-      }
-      if (a[field] > b[field]) {
-        return 1;
-      }
-      return 0;
-    });
-
-    return array;
   }
 }
