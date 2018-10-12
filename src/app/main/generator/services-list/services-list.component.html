@@ -1,8 +1,8 @@
 <mat-form-field *ngIf="!loading">
   <mat-select [(ngModel)]="service" (selectionChange)="selectService($event)" placeholder="Service" required="required">
     <mat-option [value]="'new'">Create Service</mat-option>
-    <mat-optgroup *ngFor="let group of services | orderBy: 'module' " [label]="group.module">
-      <mat-option *ngFor="let service of group.services | orderBy: 'singularName'" [value]="service">
+    <mat-optgroup *ngFor="let group of services | orderByImpure: 'module' " [label]="group.module">
+      <mat-option *ngFor="let service of group.services | orderByImpure: 'singularName'" [value]="service">
         {{service.singularName}}
       </mat-option>
     </mat-optgroup>
