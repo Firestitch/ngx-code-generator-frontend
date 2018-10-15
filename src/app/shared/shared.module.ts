@@ -11,7 +11,8 @@ import { throwIfAlreadyLoaded } from '../core/module-import-guard';
 
 import { GeneratorPreviewComponent } from './generator-preview';
 import { GeneratorLogsComponent, HighlightStatusDirective } from './generator-logs';
-import { DasherizePipe } from './shared';
+import { GeneratorCodeComponent } from './generator-code';
+import { DasherizePipe, ClassifyPipe } from './shared';
 
 @NgModule({
   imports: [
@@ -31,8 +32,10 @@ import { DasherizePipe } from './shared';
   declarations: [
     GeneratorPreviewComponent,
     GeneratorLogsComponent,
+    GeneratorCodeComponent,
     HighlightStatusDirective,
     DasherizePipe,
+    ClassifyPipe,
   ],
   exports: [
     BrowserModule,
@@ -46,11 +49,14 @@ import { DasherizePipe } from './shared';
     MatProgressSpinnerModule,
     MatDialogModule,
     MatCheckboxModule,
+    MatTabsModule,
 
     GeneratorPreviewComponent,
     GeneratorLogsComponent,
+    GeneratorCodeComponent,
     HighlightStatusDirective,
     DasherizePipe,
+    ClassifyPipe,
   ]
 })
 export class SharedModule {

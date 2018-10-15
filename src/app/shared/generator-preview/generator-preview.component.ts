@@ -16,13 +16,18 @@ export class GeneratorPreviewComponent {
   public dasherize = dasherize;
 
   get isFullCreateEdit() {
-    return this.params.interfacePattern === this.listCreationType.listCreateEditFull ||
-      this.params.interfacePattern === this.listCreationType.CreateEditFull;
+    const pattern = this.params.interfacePattern;
+    return pattern === ListCreationType.listCreateEditFull || pattern === ListCreationType.CreateEditFull;
   }
 
   get isDialog() {
     const pattern = this.params.interfacePattern;
     return pattern === ListCreationType.listCreateEditDialog || pattern === ListCreationType.CreateEditDialog;
+  }
+
+  get isCreateEdit() {
+    const pattern = this.params.interfacePattern;
+    return pattern === ListCreationType.CreateEditDialog || pattern === ListCreationType.CreateEditFull;
   }
 
   get serviceSubdirectory() {

@@ -32,6 +32,7 @@ export class GeneratorComponent implements OnInit {
   public resultLogs: string;
   public modules: ModuleInterface[];
   public services;
+  public activeTab = 0;
 
   private _pluralModelEditable = true;
   private _singularModelEditable = true;
@@ -49,9 +50,14 @@ export class GeneratorComponent implements OnInit {
     return pattern !== ListCreationType.CreateEditFull && pattern !== ListCreationType.CreateEditDialog;
   }
 
-  get isTieredPattern() {
+  get isCreateEditList() {
     const pattern  = this.model.interfacePattern;
-    return pattern !== ListCreationType.list && !this.isBasicPattern;
+    return pattern === ListCreationType.listCreateEditFull || pattern === ListCreationType.listCreateEditDialog;
+  }
+
+  get isCreateEdit() {
+    const pattern  = this.model.interfacePattern;
+    return pattern === ListCreationType.CreateEditFull || pattern === ListCreationType.CreateEditDialog;
   }
 
   get isBasicPattern() {
@@ -64,9 +70,18 @@ export class GeneratorComponent implements OnInit {
     if (pattern === ListCreationType.Basic) {
       return !this.model.module;
     } else {
-      return !this.model.service || !this.model.service;
+      return !this.model.module || !this.model.service;
     }
   }
+
+  get componentForCode() {
+    const pattern = this.model.interfacePattern;
+    if (pattern === ListCreationType.CreateEditDialog) {
+      return this.model.pluralComponentName;
+    } else{
+      return this.model.singularComponentName;
+    }
+}
 
   public ngOnInit() {
     this._generator.listOfModules().subscribe((response: any) => {
@@ -84,6 +99,7 @@ export class GeneratorComponent implements OnInit {
       (response: { message: string }) => {
         this.loading = false;
         this.resultLogs = response.message;
+        this.activeTab = this.isDialog ? 2 : 1;
         this.error = '';
       },
       (error) => {

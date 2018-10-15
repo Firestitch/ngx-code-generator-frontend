@@ -1,16 +1,17 @@
 .container {
   display: flex;
-  flex-direction: column;
 
   .col {
-    flex: 50%;
     padding: 10px;
+    display: inline-block;
   }
 
-  .row {
-    flex-direction: row;
-    align-items: flex-start;
-    display: flex;
+  .generator-card {
+    width: 500px;
+  }
+
+  .result-card {
+    min-height: 100px;
   }
 }
 
@@ -41,3 +42,4 @@
   display: inline-block;
   margin-left: 20px;
 }
+

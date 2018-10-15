@@ -1,115 +1,102 @@
 <h1> Code Generator </h1>
 <div class="container">
-  <div class="row">
-    <div class="col">
-      <mat-card>
-        <mat-card-content>
-          <h2 mat-dialog-title> Component Generate </h2>
-          <div class="mat-error" *ngIf="error">
-            {{error}}
-          </div>
-          <form class="form" #moduleForm="ngForm">
-            <app-modules-list [(module)]="model.module" [modules]="modules" required="true"></app-modules-list>
+  <div class="col generator-card">
+    <mat-card>
+      <mat-card-content>
+        <h2 mat-dialog-title> Component Generate </h2>
+        <div class="mat-error" *ngIf="error">
+          {{error}}
+        </div>
+        <form class="form" #moduleForm="ngForm">
+          <app-modules-list [(module)]="model.module" [modules]="modules" required="true"></app-modules-list>
 
-            <mat-form-field>
-              <mat-select [(ngModel)]="model.interfacePattern" placeholder="Pattern"
-                          name="interfacePattern"  #interfacePattern="ngModel" required>
-                <mat-option [value]="listCreationType.Basic">Basic Component</mat-option>
-                <mat-option [value]="listCreationType.list">Standalone List</mat-option>
-                <mat-option [value]="listCreationType.listCreateEditFull">List with Create/Edit interface (Full)
-                </mat-option>
-                <mat-option [value]="listCreationType.listCreateEditDialog">List with Create/Edit interface (Dialog)
-                </mat-option>
-                <mat-option [value]="listCreationType.CreateEditFull">Create/Edit interface (Full)</mat-option>
-                <mat-option [value]="listCreationType.CreateEditDialog">Create/Edit interface (Dialog)</mat-option>
-              </mat-select>
+          <mat-form-field>
+            <mat-select [(ngModel)]="model.interfacePattern" placeholder="Pattern"
+                        name="interfacePattern"  #interfacePattern="ngModel" required>
+              <mat-option [value]="listCreationType.Basic">Basic Component</mat-option>
+              <mat-option [value]="listCreationType.list">Standalone List</mat-option>
+              <mat-option [value]="listCreationType.listCreateEditFull">List with Create/Edit interface (Full)
+              </mat-option>
+              <mat-option [value]="listCreationType.listCreateEditDialog">List with Create/Edit interface (Dialog)
+              </mat-option>
+              <mat-option [value]="listCreationType.CreateEditFull">Create/Edit interface (Full)</mat-option>
+              <mat-option [value]="listCreationType.CreateEditDialog">Create/Edit interface (Dialog)</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div class="group">
+            <mat-form-field *ngIf="model.interfacePattern && isCreateEditList">
+              <input matInput
+                     [(ngModel)]="model.singularComponentName"
+                     (ngModelChange)="changedSingularComponent()"
+                     placeholder="Singular Component Name"
+                     name="singularComponentName" #singularComponentName="ngModel" required>
+              <mat-error *ngIf="singularComponentName.invalid"> Singular Component Name is required </mat-error>
             </mat-form-field>
-            <div class="group">
-              <mat-form-field *ngIf="model.interfacePattern && isTieredPattern">
-                <input matInput
-                       [(ngModel)]="model.singularComponentName"
-                       (ngModelChange)="changedSingularComponent()"
-                       placeholder="Singular Component Name"
-                       name="singularComponentName" #singularComponentName="ngModel" required>
-                <mat-error *ngIf="singularComponentName.invalid"> Singular Component Name is required </mat-error>
-              </mat-form-field>
 
-              <mat-form-field *ngIf="model.interfacePattern !== null && withListPattern">
-                <input matInput
-                       [(ngModel)]="model.pluralComponentName"
-                       (ngModelChange)="changedPluralComponent()"
-                       placeholder="Component Name"
-                       name="componentName" #componentName="ngModel" required>
-                <mat-error *ngIf="componentName.invalid"> Component Name is required </mat-error>
-              </mat-form-field>
-
-              <mat-form-field *ngIf="model.interfacePattern !== null && !withListPattern">
-                <input matInput
-                       [(ngModel)]="model.pluralComponentName"
-                       (ngModelChange)="changedPluralComponent()"
-                       placeholder="For Component Name"
-                       name="componentName" #componentName="ngModel"  required>
-                <mat-error *ngIf="componentName.invalid"> Component Name is required </mat-error>
-              </mat-form-field>
-            </div>
-
-            <app-services-list *ngIf="!isBasicPattern"
-                               [(service)]="model.service"
-                               [services]="services"
-                               [modules]="modules"></app-services-list>
-
-            <div class="group" *ngIf="model.service && !isBasicPattern">
-              <mat-form-field>
-                <input matInput
-                       [(ngModel)]="model.singularModelName"
-                       (blur)="onSingularModelBlur()"
-                       placeholder="Singular Model Name"
-                       name="singularModelName" #singularModelName="ngModel" required="!isBasicPattern">
-                <mat-error *ngIf="singularModelName.invalid"> Singular Model Name is required </mat-error>
-              </mat-form-field>
-
-              <mat-form-field>
-                <input matInput
-                       [(ngModel)]="model.pluralModelName"
-                       (blur)="onPluralModelBlur()"
-                       placeholder="Plural Model Name"
-                       name="pluralModelName" #pluralModelName="ngModel" required="!isBasicPattern">
-                <mat-error *ngIf="pluralModelName.invalid"> Plural Model Name is required </mat-error>
-              </mat-form-field>
-
-            </div>
-          </form>
-        </mat-card-content>
-        <mat-card-actions>
-          <button mat-raised-button color="primary"
-                  (click)="generate()"
-                  [disabled]="loading || moduleForm.invalid || isFormValid">GENERATE</button>
-          <div class="spinner" *ngIf="loading">
-            <mat-spinner [diameter]="22"></mat-spinner>
+            <mat-form-field *ngIf="model.interfacePattern !== null">
+              <input matInput
+                     [(ngModel)]="model.pluralComponentName"
+                     (ngModelChange)="changedPluralComponent()"
+                     placeholder="Component Name"
+                     name="componentName" #componentName="ngModel" required>
+              <mat-error *ngIf="componentName.invalid"> Component Name is required </mat-error>
+            </mat-form-field>
           </div>
-        </mat-card-actions>
-      </mat-card>
-    </div>
 
-    <div class="col">
-      <mat-card>
-        <mat-card-content>
-          <h2 mat-dialog-title>Result Preview </h2>
+          <app-services-list *ngIf="!isBasicPattern"
+                             [(service)]="model.service"
+                             [services]="services"
+                             [modules]="modules"></app-services-list>
+
+          <div class="group" *ngIf="model.service && !isBasicPattern">
+            <mat-form-field>
+              <input matInput
+                     [(ngModel)]="model.singularModelName"
+                     (blur)="onSingularModelBlur()"
+                     placeholder="Singular Model Name"
+                     name="singularModelName" #singularModelName="ngModel" required="!isBasicPattern">
+              <mat-error *ngIf="singularModelName.invalid"> Singular Model Name is required </mat-error>
+            </mat-form-field>
+
+            <mat-form-field *ngIf="!isCreateEdit">
+              <input matInput
+                     [(ngModel)]="model.pluralModelName"
+                     (blur)="onPluralModelBlur()"
+                     placeholder="Plural Model Name"
+                     name="pluralModelName" #pluralModelName="ngModel" required="!isCreateEdit && !isBasicPattern">
+              <mat-error *ngIf="pluralModelName.invalid"> Plural Model Name is required </mat-error>
+            </mat-form-field>
+
+          </div>
+        </form>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary"
+                (click)="generate()"
+                [disabled]="loading || moduleForm.invalid || isFormValid">GENERATE</button>
+        <div class="spinner" *ngIf="loading">
+          <mat-spinner [diameter]="22"></mat-spinner>
+        </div>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+
+  <div class="col">
+    <mat-card class="result-card">
+      <mat-tab-group [selectedIndex]="activeTab">
+        <mat-tab label="Result Preview">
           <generator-preview [params]="model"></generator-preview>
-        </mat-card-content>
-      </mat-card>
-    </div>
-  </div>
-
-  <div class="row" *ngIf="resultLogs">
-    <div class="col">
-      <mat-card>
-        <mat-card-content>
-          <h2 mat-dialog-title> Logs Result </h2>
+        </mat-tab>
+        <mat-tab label="Logs">
           <generator-logs [logs]="resultLogs"></generator-logs>
-        </mat-card-content>
-      </mat-card>
-    </div>
+        </mat-tab>
+        <mat-tab label="Code">
+          <generator-code [model]="model.singularModelName"
+                          [component]="componentForCode"
+                          [pattern]="model.interfacePattern"></generator-code>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card>
   </div>
-
 </div>

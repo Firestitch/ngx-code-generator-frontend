@@ -1,86 +1,88 @@
-<ng-container *ngIf="params?.module?.modulePath; else noModule">
-  <div class="result">
-    <div class="level">
-      <div class="folder">
-        <mat-icon>folder</mat-icon>
-        <span>{{params.module.modulePath}}</span>
-      </div>
-      <div class="level" *ngIf="params.pluralComponentName">
+<div class="container">
+  <ng-container *ngIf="params?.module?.modulePath; else noModule">
+    <div class="result">
+      <div class="level">
         <div class="folder">
           <mat-icon>folder</mat-icon>
-          <span>{{params.pluralComponentName | dasherize}}</span>
+          <span>{{params.module.modulePath}}</span>
+        </div>
+        <div class="level" *ngIf="params.pluralComponentName">
+          <div class="folder">
+            <mat-icon>folder</mat-icon>
+            <span>{{params.pluralComponentName | dasherize}}</span>
+          </div>
+
+          <!--<div class="level" *ngIf="params.interfacePattern === listCreationType.list">
+            <div class="file">
+              <mat-icon>save</mat-icon>
+              <span>{{params.componentName | dasherize}}.component.ts</span>
+            </div>
+            <div class="file">
+              <mat-icon>save</mat-icon>
+              <span>{{ params.componentName | dasherize }}.component.html</span>
+            </div>
+          </div>-->
+
+          <!-- /Full -->
+
+          <div class="level">
+            <div class="file">
+              <mat-icon>insert_drive_file</mat-icon>
+              <span>{{ params.pluralComponentName | dasherize }}.component.ts</span>
+            </div>
+            <div class="file">
+              <mat-icon>insert_drive_file</mat-icon>
+              <span>{{ params.pluralComponentName | dasherize }}.component.html</span>
+            </div>
+            <div class="file">
+              <mat-icon>insert_drive_file</mat-icon>
+              <span>{{ params.pluralComponentName | dasherize }}.component.scss</span>
+            </div>
+          </div>
         </div>
 
-        <!--<div class="level" *ngIf="params.interfacePattern === listCreationType.list">
-          <div class="file">
-            <mat-icon>save</mat-icon>
-            <span>{{params.componentName | dasherize}}.component.ts</span>
+        <!-- Full/Dialog -->
+        <div class="level" *ngIf="(isFullCreateEdit || isDialog) && params.singularComponentName && !isCreateEdit">
+          <div class="folder">
+            <mat-icon>folder</mat-icon>
+            <span>{{ params.singularComponentName | dasherize}}</span>
           </div>
-          <div class="file">
-            <mat-icon>save</mat-icon>
-            <span>{{ params.componentName | dasherize }}.component.html</span>
-          </div>
-        </div>-->
-
-        <!-- /Full -->
-
-        <div class="level">
-          <div class="file">
-            <mat-icon>insert_drive_file</mat-icon>
-            <span>{{ params.pluralComponentName | dasherize }}.component.ts</span>
-          </div>
-          <div class="file">
-            <mat-icon>insert_drive_file</mat-icon>
-            <span>{{ params.pluralComponentName | dasherize }}.component.html</span>
-          </div>
-          <div class="file">
-            <mat-icon>insert_drive_file</mat-icon>
-            <span>{{ params.pluralComponentName | dasherize }}.component.scss</span>
+          <div class="level">
+            <div class="file">
+              <mat-icon>insert_drive_file</mat-icon>
+              <span>{{ params.singularComponentName | dasherize }}.component.ts</span>
+            </div>
+            <div class="file">
+              <mat-icon>insert_drive_file</mat-icon>
+              <span>{{ params.singularComponentName | dasherize}}.component.html</span>
+            </div>
+            <div class="file">
+              <mat-icon>insert_drive_file</mat-icon>
+              <span>{{ params.singularComponentName | dasherize}}.component.scss</span>
+            </div>
           </div>
         </div>
+
+
+        <!-- /Service -->
+        <div class="level" *ngIf="params.service && params.service.type === 'new'">
+          <div class="folder">
+            <mat-icon>folder</mat-icon>
+            <span>{{ serviceSubdirectory | dasherize }}</span>
+          </div>
+          <div class="level">
+            <div class="file">
+              <mat-icon>insert_drive_file</mat-icon>
+              <span>{{ params.service.singularName | dasherize }}</span>
+            </div>
+          </div>
+        </div>
+
       </div>
-
-      <!-- Full/Dialog -->
-      <div class="level" *ngIf="(isFullCreateEdit || isDialog) && params.singularComponentName">
-        <div class="folder">
-          <mat-icon>folder</mat-icon>
-          <span>{{ params.singularComponentName | dasherize}}</span>
-        </div>
-        <div class="level">
-          <div class="file">
-            <mat-icon>insert_drive_file</mat-icon>
-            <span>{{ params.singularComponentName | dasherize }}.component.ts</span>
-          </div>
-          <div class="file">
-            <mat-icon>insert_drive_file</mat-icon>
-            <span>{{ params.singularComponentName | dasherize}}.component.html</span>
-          </div>
-          <div class="file">
-            <mat-icon>insert_drive_file</mat-icon>
-            <span>{{ params.singularComponentName | dasherize}}.component.scss</span>
-          </div>
-        </div>
-      </div>
-
-
-      <!-- /Service -->
-      <div class="level" *ngIf="params.service && params.service.type === 'new'">
-        <div class="folder">
-          <mat-icon>folder</mat-icon>
-          <span>{{ serviceSubdirectory | dasherize }}</span>
-        </div>
-        <div class="level">
-          <div class="file">
-            <mat-icon>insert_drive_file</mat-icon>
-            <span>{{ params.service.singularName | dasherize }}</span>
-          </div>
-        </div>
-      </div>
-
     </div>
-  </div>
-</ng-container>
+  </ng-container>
 
-<ng-template #noModule>
-  <div>Chose target module</div>
-</ng-template>
+  <ng-template #noModule>
+    <div>Chose target module</div>
+  </ng-template>
+</div>
