@@ -78,7 +78,7 @@ export class GeneratorComponent implements OnInit {
     const pattern = this.model.interfacePattern;
     if (pattern === ListCreationType.CreateEditDialog) {
       return this.model.pluralComponentName;
-    } else{
+    } else {
       return this.model.singularComponentName;
     }
 }
@@ -99,7 +99,7 @@ export class GeneratorComponent implements OnInit {
       (response: { message: string }) => {
         this.loading = false;
         this.resultLogs = response.message;
-        this.activeTab = this.isDialog ? 2 : 1;
+        this.activeTab = this.model.interfacePattern === ListCreationType.CreateEditDialog ? 2 : 1;
         this.error = '';
       },
       (error) => {
@@ -109,24 +109,35 @@ export class GeneratorComponent implements OnInit {
   }
 
   public changedPluralComponent() {
-    if (this._pluralModelEditable) {
-      this.model.pluralModelName = this.model.pluralComponentName;
+    // if (this._pluralModelEditable) {
+    //   this.model.pluralModelName = this.model.pluralComponentName;
+    // }
+
+    if (this.model.interfacePattern === ListCreationType.list) {
+      this.model.singularModelName = this.model.pluralComponentName;
+      this.model.pluralModelName = pluralize(this.model.pluralComponentName);
     }
   }
 
   public changedSingularComponent() {
     this.model.pluralComponentName = pluralize(this.model.singularComponentName);
     this.model.pluralModelName = this.model.pluralComponentName;
+    this.model.singularModelName = this.model.singularComponentName;
 
-    if (this._singularModelEditable) {
-      this.model.singularModelName = this.model.singularComponentName;
-    }
+    // if (this._singularModelEditable) {
+    //   this.model.singularModelName = this.model.singularComponentName;
+    // }
   }
 
   public onSingularModelBlur() {
-    if (this.model.singularModelName && this.model.singularComponentName !== this.model.singularModelName) {
-      this._singularModelEditable = false;
-    }
+
+    // if (this.model.singularModelName && this.model.singularComponentName !== this.model.singularModelName) {
+    //   this._singularModelEditable = false;
+    // }
+  }
+
+  public changedSingularModel() {
+    this.model.pluralModelName = pluralize(this.model.singularModelName);
   }
 
   public onPluralModelBlur() {

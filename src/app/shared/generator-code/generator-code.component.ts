@@ -30,7 +30,6 @@ export class GeneratorCodeComponent implements OnChanges {
 
   public generateCode() {
     switch (this.pattern) {
-      case this.listCreateType.listCreateEditDialog:
       case this.listCreateType.CreateEditDialog: {
         this.forDialogComponent();
       } break;
@@ -45,7 +44,7 @@ export class GeneratorCodeComponent implements OnChanges {
     import { MatDialog } from '@angular/material';\n
     \n
     public openDialog(): void {\n
-      const dialogRef = this.dialog.open(${classify(this.component)}Dialog, {\n
+      const dialogRef = this.dialog.open(${classify(this.component)}Component, {\n
         width: '400px',\n
         data: { ${camelize(this.model)}: this.${camelize(this.model)} }\n
       );\n
