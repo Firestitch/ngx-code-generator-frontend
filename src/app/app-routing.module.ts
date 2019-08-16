@@ -1,15 +1,12 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
-import { GeneratorComponent } from './main';
-
 export const routes: Routes = [
   { path: '', redirectTo: '/generator', pathMatch: 'full' },
   {
     path: 'generator',
-    component: GeneratorComponent,
+    loadChildren: './component-generator/component-generator.module#ComponentGeneratorModule',
   },
-  { path: '**', redirectTo: '/login' }
 ];
 
 

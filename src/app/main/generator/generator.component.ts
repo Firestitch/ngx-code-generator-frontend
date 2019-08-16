@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GeneratorService } from './generator.service';
+import { ModuleInterface } from '@libs/modules-list';
 import { ListCreationType } from '../../../../../src/common/list-creation-type';
-import { ModuleInterface } from '../../shared/shared/interfaces/';
 
 import * as pluralize from 'pluralize';
 
@@ -23,7 +23,8 @@ export class GeneratorComponent implements OnInit {
     singularComponentName: null,
     pluralComponentName: null,
     singularModelName: null,
-    pluralModelName: null
+    pluralModelName: null,
+    componentType: null,
   };
 
   public listCreationType = ListCreationType;
@@ -41,28 +42,33 @@ export class GeneratorComponent implements OnInit {
   }
 
   get isDialog() {
-    const pattern = this.model.interfacePattern;
-    return pattern === ListCreationType.listCreateEditDialog || pattern === ListCreationType.CreateEditDialog;
+    // const pattern = this.model.interfacePattern;
+    // return pattern === ListCreationType.listCreateEditDialog || pattern === ListCreationType.CreateEditDialog;
+    return true
   }
 
   get withListPattern() {
-    const pattern = this.model.interfacePattern;
-    return pattern !== ListCreationType.CreateEditFull && pattern !== ListCreationType.CreateEditDialog;
+    // const pattern = this.model.interfacePattern;
+    // return pattern !== ListCreationType.CreateEditFull && pattern !== ListCreationType.CreateEditDialog;
+    return true
   }
 
   get isCreateEditList() {
-    const pattern  = this.model.interfacePattern;
-    return pattern === ListCreationType.listCreateEditFull || pattern === ListCreationType.listCreateEditDialog;
+    // const pattern  = this.model.interfacePattern;
+    // return pattern === ListCreationType.listCreateEditFull || pattern === ListCreationType.listCreateEditDialog;
+    return true
   }
 
   get isCreateEdit() {
-    const pattern  = this.model.interfacePattern;
-    return pattern === ListCreationType.CreateEditFull || pattern === ListCreationType.CreateEditDialog;
+    // const pattern  = this.model.interfacePattern;
+    // return pattern === ListCreationType.CreateEditFull || pattern === ListCreationType.CreateEditDialog;
+    return true
   }
 
   get isBasicPattern() {
-    const pattern  = this.model.interfacePattern;
-    return pattern === ListCreationType.Basic;
+    // const pattern  = this.model.interfacePattern;
+    // return pattern === ListCreationType.Basic;
+    return true
   }
 
   get isFormValid() {
@@ -76,11 +82,12 @@ export class GeneratorComponent implements OnInit {
 
   get componentForCode() {
     const pattern = this.model.interfacePattern;
-    if (pattern === ListCreationType.CreateEditDialog) {
-      return this.model.pluralComponentName;
-    } else {
-      return this.model.singularComponentName;
-    }
+    // if (pattern === ListCreationType.CreateEditDialog) {
+    //   return this.model.pluralComponentName;
+    // } else {
+    //   return this.model.singularComponentName;
+    // }
+    return true;
 }
 
   public ngOnInit() {
@@ -99,7 +106,7 @@ export class GeneratorComponent implements OnInit {
       (response: { message: string }) => {
         this.loading = false;
         this.resultLogs = response.message;
-        this.activeTab = this.model.interfacePattern === ListCreationType.CreateEditDialog ? 2 : 1;
+        // this.activeTab = this.model.interfacePattern === ListCreationType.CreateEditDialog ? 2 : 1;
         this.error = '';
       },
       (error) => {

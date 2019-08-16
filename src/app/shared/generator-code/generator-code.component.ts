@@ -30,9 +30,9 @@ export class GeneratorCodeComponent implements OnChanges {
 
   public generateCode() {
     switch (this.pattern) {
-      case this.listCreateType.CreateEditDialog: {
-        this.forDialogComponent();
-      } break;
+      // case this.listCreateType.CreateEditDialog: {
+      //   this.forDialogComponent();
+      // } break;
       default: {
         this.code = null;
       }

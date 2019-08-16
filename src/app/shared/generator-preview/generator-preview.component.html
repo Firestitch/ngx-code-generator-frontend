@@ -6,43 +6,64 @@
           <mat-icon>folder</mat-icon>
           <span>{{params.module.modulePath}}</span>
         </div>
-        <div class="level" *ngIf="params.pluralComponentName">
+        <div class="level" *ngIf="params.componentType">
           <div class="folder">
             <mat-icon>folder</mat-icon>
-            <span>{{params.pluralComponentName | dasherize}}</span>
+            <ng-container [ngSwitch]="params.componentType">
+              <span *ngSwitchCase="'component'">/components</span>
+              <span *ngSwitchCase="'view'">/views</span>
+            </ng-container>
+            <!--<span>{{params.pluralComponentName | dasherize}}</span>-->
           </div>
 
-          <!--<div class="level" *ngIf="params.interfacePattern === listCreationType.list">
-            <div class="file">
-              <mat-icon>save</mat-icon>
-              <span>{{params.componentName | dasherize}}.component.ts</span>
+          <div class="level" *ngIf="params.componentName">
+            <div class="folder">
+              <mat-icon>folder</mat-icon>
+              <span>{{params.componentName | dasherize}}</span>
             </div>
-            <div class="file">
-              <mat-icon>save</mat-icon>
-              <span>{{ params.componentName | dasherize }}.component.html</span>
-            </div>
-          </div>-->
 
-          <!-- /Full -->
+            <div class="level">
+              <ng-container *ngIf="params.createEditComponentName && hasCreateEditInterface">
+                <div class="folder">
+                  <mat-icon>folder</mat-icon>
+                  <span>{{params.createEditComponentName | dasherize}}</span>
+                </div>
 
-          <div class="level">
-            <div class="file">
-              <mat-icon>insert_drive_file</mat-icon>
-              <span>{{ params.pluralComponentName | dasherize }}.component.ts</span>
-            </div>
-            <div class="file">
-              <mat-icon>insert_drive_file</mat-icon>
-              <span>{{ params.pluralComponentName | dasherize }}.component.html</span>
-            </div>
-            <div class="file">
-              <mat-icon>insert_drive_file</mat-icon>
-              <span>{{ params.pluralComponentName | dasherize }}.component.scss</span>
+                <div class="level" *ngIf="params.createEditComponentName">
+                  <div class="file">
+                    <mat-icon>insert_drive_file</mat-icon>
+                    <span>{{ params.createEditComponentName | dasherize }}.component.ts</span>
+                  </div>
+                  <div class="file">
+                    <mat-icon>insert_drive_file</mat-icon>
+                    <span>{{ params.createEditComponentName | dasherize }}.component.html</span>
+                  </div>
+                  <div class="file">
+                    <mat-icon>insert_drive_file</mat-icon>
+                    <span>{{ params.createEditComponentName | dasherize }}.component.scss</span>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="!(hasCreateEditInterface && !hasListInterface)">
+                <div class="file">
+                  <mat-icon>insert_drive_file</mat-icon>
+                  <span>{{ params.componentName | dasherize }}.component.ts</span>
+                </div>
+                <div class="file">
+                  <mat-icon>insert_drive_file</mat-icon>
+                  <span>{{ params.componentName | dasherize }}.component.html</span>
+                </div>
+                <div class="file">
+                  <mat-icon>insert_drive_file</mat-icon>
+                  <span>{{ params.componentName | dasherize }}.component.scss</span>
+                </div>
+              </ng-container>
             </div>
           </div>
         </div>
 
         <!-- Full/Dialog -->
-        <div class="level" *ngIf="(isFullCreateEdit || isDialog) && params.singularComponentName && !isCreateEdit">
+        <!--<div class="level" *ngIf="(isFullCreateEdit || isDialog) && params.singularComponentName && !isCreateEdit">
           <div class="folder">
             <mat-icon>folder</mat-icon>
             <span>{{ params.singularComponentName | dasherize}}</span>
@@ -62,10 +83,10 @@
             </div>
           </div>
         </div>
-
+-->
 
         <!-- /Service -->
-        <div class="level" *ngIf="params.service && params.service.type === 'new'">
+        <!--<div class="level" *ngIf="params.service && params.service.type === 'new'">
           <div class="folder">
             <mat-icon>folder</mat-icon>
             <span>{{ serviceSubdirectory | dasherize }}</span>
@@ -76,7 +97,7 @@
               <span>{{ params.service.singularName | dasherize }}</span>
             </div>
           </div>
-        </div>
+        </div>-->
 
       </div>
     </div>

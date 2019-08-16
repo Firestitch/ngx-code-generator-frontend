@@ -1,11 +1,12 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
 import {
   MatFormFieldModule, MatInputModule, MatProgressSpinnerModule,
   MatSelectModule, MatButtonModule, MatCardModule, MatIconModule,
   MatDialogModule, MatCheckboxModule, MatTabsModule
 } from '@angular/material';
+
+import { FsAutocompleteModule } from '@firestitch/autocomplete';
 
 import { throwIfAlreadyLoaded } from '../core/module-import-guard';
 
@@ -13,10 +14,11 @@ import { GeneratorPreviewComponent } from './generator-preview';
 import { GeneratorLogsComponent, HighlightStatusDirective } from './generator-logs';
 import { GeneratorCodeComponent } from './generator-code';
 import { DasherizePipe, ClassifyPipe } from './shared';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   imports: [
-    BrowserModule,
+    CommonModule,
     FormsModule,
     MatSelectModule,
     MatFormFieldModule,
@@ -28,6 +30,7 @@ import { DasherizePipe, ClassifyPipe } from './shared';
     MatDialogModule,
     MatCheckboxModule,
     MatTabsModule,
+    FsAutocompleteModule,
   ],
   declarations: [
     GeneratorPreviewComponent,
@@ -38,7 +41,7 @@ import { DasherizePipe, ClassifyPipe } from './shared';
     ClassifyPipe,
   ],
   exports: [
-    BrowserModule,
+    CommonModule,
     FormsModule,
     MatSelectModule,
     MatFormFieldModule,
@@ -50,6 +53,8 @@ import { DasherizePipe, ClassifyPipe } from './shared';
     MatDialogModule,
     MatCheckboxModule,
     MatTabsModule,
+
+    FsAutocompleteModule,
 
     GeneratorPreviewComponent,
     GeneratorLogsComponent,

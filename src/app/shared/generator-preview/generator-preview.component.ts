@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { dasherize } from '@angular-devkit/core/src/utils/strings';
 import { ListCreationType } from '../../../../../src/common/list-creation-type';
 
@@ -9,28 +9,40 @@ import { ListCreationType } from '../../../../../src/common/list-creation-type';
     './generator-preview.component.scss'
   ]
 })
-export class GeneratorPreviewComponent {
+export class GeneratorPreviewComponent implements OnChanges {
   @Input() public params;
 
-  public listCreationType = ListCreationType;
-  public dasherize = dasherize;
+  public hasListInterface = false;
+  public hasCreateEditInterface = false;
+  public hasModel = false;
 
-  get isFullCreateEdit() {
-    const pattern = this.params.interfacePattern;
-    return pattern === ListCreationType.listCreateEditFull || pattern === ListCreationType.CreateEditFull;
+  public ngOnChanges(changes: SimpleChanges) {
+    if (changes.params && changes.params.currentValue && changes.params.currentValue.interfacePattern) {
+      this.interfacePatterChanged();
+    }
   }
 
-  get isDialog() {
-    const pattern = this.params.interfacePattern;
-    return pattern === ListCreationType.listCreateEditDialog || pattern === ListCreationType.CreateEditDialog;
-  }
+  public interfacePatterChanged() {
+    this.hasListInterface = false;
+    this.hasCreateEditInterface = false;
+    this.hasModel = false;
 
-  get isCreateEdit() {
-    const pattern = this.params.interfacePattern;
-    return pattern === ListCreationType.CreateEditDialog || pattern === ListCreationType.CreateEditFull;
-  }
+    switch (this.params.interfacePattern) {
+      case 'list': {
+        this.hasListInterface = true;
+        this.hasModel = true;
+      } break;
 
-  get serviceSubdirectory() {
-    return this.params.service.servicePath.indexOf('shared/services') !== -1 ? 'shared/services' : 'services';
+      case 'list-create-edit': {
+        this.hasListInterface = true;
+        this.hasCreateEditInterface = true;
+        this.hasModel = true;
+      } break;
+
+      case 'create-edit': {
+        this.hasCreateEditInterface = true;
+        this.hasModel = true;
+      } break;
+    }
   }
 }

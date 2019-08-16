@@ -4,14 +4,14 @@
   <div class="form">
       <app-modules-list
         [(module)]="model.module"
-        (moduleChange)="moduleChanged($event)"
+        (moduleChange)="moduleChanged()"
         [modules]="data.modules"
         required="true"></app-modules-list>
 
       <mat-form-field *ngIf="!hidePath">
         <mat-select [(ngModel)]="model.subdirectory" placeholder="Path">
-          <mat-option [value]="'/services'">/services</mat-option>
-          <mat-option [value]="'/shared/services'">/shared/services</mat-option>
+          <mat-option [value]="'/data'">Data</mat-option>
+          <mat-option [value]="'/services'">Generic</mat-option>
         </mat-select>
       </mat-form-field>
 
