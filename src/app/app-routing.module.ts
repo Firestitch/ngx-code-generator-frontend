@@ -7,6 +7,10 @@ export const routes: Routes = [
     path: 'generator',
     loadChildren: './component-generator/component-generator.module#ComponentGeneratorModule',
   },
+  {
+    path: 'enums',
+    loadChildren: './enums/enums.module#EnumsModule',
+  },
 ];
 
 

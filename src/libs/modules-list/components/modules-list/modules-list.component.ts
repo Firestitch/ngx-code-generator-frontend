@@ -79,7 +79,6 @@ export class ModulesListComponent implements OnInit, OnChanges, ControlValueAcce
   }
 
   public selectModule(event) {
-    console.log('selected');
     this.writeValue(event);
 
     if (event) {

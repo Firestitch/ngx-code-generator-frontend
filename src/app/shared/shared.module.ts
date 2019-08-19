@@ -15,6 +15,7 @@ import { GeneratorLogsComponent, HighlightStatusDirective } from './generator-lo
 import { GeneratorCodeComponent } from './generator-code';
 import { DasherizePipe, ClassifyPipe } from './shared';
 import { CommonModule } from '@angular/common';
+import { FsLabelModule } from '@firestitch/label';
 
 @NgModule({
   imports: [
@@ -31,6 +32,7 @@ import { CommonModule } from '@angular/common';
     MatCheckboxModule,
     MatTabsModule,
     FsAutocompleteModule,
+    FsLabelModule,
   ],
   declarations: [
     GeneratorPreviewComponent,
@@ -55,6 +57,7 @@ import { CommonModule } from '@angular/common';
     MatTabsModule,
 
     FsAutocompleteModule,
+    FsLabelModule,
 
     GeneratorPreviewComponent,
     GeneratorLogsComponent,

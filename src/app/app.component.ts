@@ -6,5 +6,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+  public title = 'app';
+
+  public navLinks = [
+    {
+      path: '/generator',
+      label: 'Components',
+    },
+    {
+      path: '/enums',
+      label: 'Enums',
+    }
+  ];
 }
