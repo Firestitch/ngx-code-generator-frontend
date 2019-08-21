@@ -1,0 +1,24 @@
+<div class="values-container" *ngIf="enumData">
+  <fs-label-field>
+    <fs-label>
+      Enum
+    </fs-label>
+    <ng-container *ngFor="let member of enumData.members">
+      <div class="enum-item">
+        {{ enumData.name }}.{{member}}
+      </div>
+    </ng-container>
+  </fs-label-field>
+
+  <fs-label-field>
+    <fs-label>
+      Name
+    </fs-label>
+
+    <ng-container *ngFor="let member of enumData.members; let index=index; trackBy: itemsTrackByFn">
+      <mat-form-field>
+        <input matInput (keyup)="setItemValue($event, index)" required>
+      </mat-form-field>
+    </ng-container>
+  </fs-label-field>
+</div>

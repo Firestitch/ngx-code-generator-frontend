@@ -16,6 +16,10 @@ export class AppComponent {
     {
       path: '/enums',
       label: 'Enums',
+    },
+    {
+      path: '/consts',
+      label: 'Consts',
     }
   ];
 }

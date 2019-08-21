@@ -11,6 +11,10 @@ export const routes: Routes = [
     path: 'enums',
     loadChildren: './enums/enums.module#EnumsModule',
   },
+  {
+    path: 'consts',
+    loadChildren: './consts/consts.module#ConstsModule',
+  },
 ];
 
 
