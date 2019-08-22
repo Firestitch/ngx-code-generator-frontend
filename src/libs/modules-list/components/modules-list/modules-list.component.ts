@@ -60,7 +60,11 @@ export class ModulesListComponent implements OnInit, OnChanges, ControlValueAcce
   public fetch = (kw) => {
     if (this.modules) {
       if (!!kw) {
-        const matchedModules = this.modules.filter((module) => module.moduleName.indexOf(kw) > -1);
+        const kwParts = kw.split(' ');
+
+        const matchedModules = this.modules.filter((module) => {
+          return kwParts.every((part) => module.moduleFullPath.indexOf(part) > -1);
+        });
         return of(matchedModules);
       } else {
         return of(this.modules);

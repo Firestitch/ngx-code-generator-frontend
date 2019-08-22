@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
+import { environment } from '@env/environment';
 
 
 @Injectable({
@@ -11,8 +12,11 @@ export class ConstService {
   }
 
   public getEnumsForModule(modulePath: string) {
-    return this._http.get('/generate/enums-list', { params: { enumPath: modulePath } });
-    // return of([{"enumPath":"src/app/account/enums","enumFile":"visitors.enum.ts","enumFullPath":"src/app/account/enums/visitors.enum.ts"}]);
+    if (environment.production) {
+      return this._http.get('/generate/enums-list', { params: { enumPath: modulePath } });
+    } else {
+      return of([{"enumPath":"src/app/account/enums","enumFile":"visitors.enum.ts","enumFullPath":"src/app/account/enums/visitors.enum.ts"}]);
+    }
   }
 
   public getEnumDetails(enumPath: string) {

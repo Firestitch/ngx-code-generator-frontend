@@ -33,8 +33,10 @@ export class EnumsListComponent implements ControlValueAccessor {
   public fetch = (kw) => {
     if (this.enums) {
       if (!!kw) {
+        const kwParts = kw.split(' ');
+
         const matchedEnums = this.enums.filter((service) => {
-          return service.enumFile.indexOf(kw) > -1;
+          return kwParts.every((part) => service.enumFullPath.indexOf(part) > -1);
         });
         return of(matchedEnums);
       } else {

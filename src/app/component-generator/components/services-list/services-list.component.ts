@@ -59,8 +59,12 @@ export class ServicesListComponent implements ControlValueAccessor {
   public fetch = (kw) => {
     if (this.services) {
       if (!!kw) {
+        const kwParts = kw.split(' ');
+
         const matchedModules = this.services.filter((service) => {
-          return service.servicePath.indexOf(kw) > -1 || service.singularName.indexOf(kw) > -1;
+          return kwParts.every((part) => {
+            return service.servicePath.indexOf(part) > -1 || service.singularName.indexOf(part) > -1;
+          });
         });
         return of(matchedModules);
       } else {
