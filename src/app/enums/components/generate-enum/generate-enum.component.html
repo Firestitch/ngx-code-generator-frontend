@@ -1,9 +1,6 @@
 <form class="form" (ngSubmit)="submit()" #moduleForm="ngForm">
   <mat-card>
     <mat-card-content>
-      <div class="mat-error" *ngIf="error">
-        {{error}}
-      </div>
       <app-modules-list [(ngModel)]="model.module" name="module"></app-modules-list>
 
       <mat-form-field>

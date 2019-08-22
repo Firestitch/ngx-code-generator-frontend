@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { FsMessage } from '@firestitch/message';
 
 
 @Component({
@@ -14,7 +15,10 @@ export class ConstsView {
   public constPath = '';
   public code = '';
 
-  constructor(private _http: HttpClient,) {}
+  constructor(
+    private _http: HttpClient,
+    private _message: FsMessage,
+  ) {}
 
   public save(data) {
     this.constPath = '';
@@ -27,11 +31,11 @@ export class ConstsView {
           this.code = response.code;
           this.constPath = response.path;
         },
-        (error) => {
+        (response) => {
           this.loading = false;
           this.constPath = '';
           this.code = '';
-          this.error = error.message || error.body.error;
+          this._message.error(response.error.message || response.body.error);
         });
   }
 }

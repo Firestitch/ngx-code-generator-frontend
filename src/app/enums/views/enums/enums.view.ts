@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { FsMessage } from '@firestitch/message';
 
 
 @Component({
@@ -8,13 +9,15 @@ import { HttpClient } from '@angular/common/http';
 })
 export class EnumsView {
 
-  public error = '';
   public loading = false;
 
   public enumPath = '';
   public code = '';
 
-  constructor(private _http: HttpClient) {}
+  constructor(
+    private _http: HttpClient,
+    private _message: FsMessage,
+  ) {}
 
   public save(data) {
     this.enumPath = '';
@@ -23,15 +26,14 @@ export class EnumsView {
     this._http.post('/generate/enum', data)
       .subscribe((response: { code: string, path: string }) => {
           this.loading = false;
-          this.error = '';
           this.code = response.code;
           this.enumPath = response.path;
         },
-        (error) => {
+        (response) => {
           this.loading = false;
           this.enumPath = '';
           this.code = '';
-          this.error = error.message || error.body.error;
+          this._message.error(response.error.message || response.body.error);
         });
   }
 }

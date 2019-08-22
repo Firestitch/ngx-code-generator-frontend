@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { FsMessage } from '@firestitch/message';
 
 @Component({
   templateUrl: './generator.view.html',
@@ -13,7 +14,10 @@ export class GeneratorView {
   public error: string;
   public activeTab = 0;
 
-  constructor(private _http: HttpClient) {}
+  constructor(
+    private _http: HttpClient,
+    private _message: FsMessage,
+  ) {}
 
   public formDataChange(data) {
     this.formData = data;
@@ -26,11 +30,10 @@ export class GeneratorView {
         this.loading = false;
         this.resultLogs = response.message;
         this.activeTab = 1;
-        this.error = '';
       },
-      (error) => {
+      (response) => {
         this.loading = false;
-        this.error = error.message || error.body.error;
+        this._message.error(response.error.message || response.body.error);
       });
   }
 }

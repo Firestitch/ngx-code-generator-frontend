@@ -24,10 +24,12 @@
     "@angular/platform-browser": "^6.0.3",
     "@angular/platform-browser-dynamic": "^6.0.3",
     "@angular/router": "^6.0.3",
+    "@firestitch/message": "^7.1.8",
     "angular-in-memory-web-api": "^0.6.1",
     "core-js": "^2.5.4",
     "lodash-es": "^4.17.15",
     "ngx-pipes": "^2.3.5",
+    "ngx-toastr": "^10.1.0",
     "pluralize": "^7.0.0",
     "rxjs": "^6.0.0",
     "zone.js": "^0.8.26"

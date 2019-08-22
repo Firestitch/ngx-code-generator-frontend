@@ -21,9 +21,6 @@ export class GeneratorFormComponent implements OnInit, AfterViewInit {
   @Input()
   public loading = false;
 
-  @Input()
-  public error = '';
-
   @Output()
   public formChanged = new EventEmitter<any>();
 

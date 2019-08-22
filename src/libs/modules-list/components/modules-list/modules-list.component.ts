@@ -10,6 +10,8 @@ import {
 import { MatDialog } from '@angular/material';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
+import { FsMessage } from '@firestitch/message';
+
 import { of } from 'rxjs';
 
 import { ModuleInterface } from '../../interfaces/';
@@ -44,7 +46,8 @@ export class ModulesListComponent implements OnInit, OnChanges, ControlValueAcce
 
   constructor(
     private _modulesService: ModulesService,
-    private _dialog: MatDialog
+    private _dialog: MatDialog,
+    private _message: FsMessage,
   ) {}
 
   public ngOnInit() {
@@ -122,6 +125,9 @@ export class ModulesListComponent implements OnInit, OnChanges, ControlValueAcce
       .subscribe((response: any) => {
         this.loading = false;
         this.modules = response.modules;
-      });
+      },
+        (response) => {
+          this._message.error(response.error.message || response.body.error);
+        });
   }
 }

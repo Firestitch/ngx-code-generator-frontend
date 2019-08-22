@@ -1,6 +1,6 @@
 <div class="container">
   <div class="col generator-card">
-    <app-enum-form (generate)="save($event)" [loading]="loading" [error]="error"></app-enum-form>
+    <app-enum-form (generate)="save($event)" [loading]="loading"></app-enum-form>
   </div>
   <div class="col" *ngIf="enumPath">
     <mat-card>
