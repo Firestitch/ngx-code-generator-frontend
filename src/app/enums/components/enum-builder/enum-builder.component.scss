@@ -3,9 +3,6 @@
   flex-direction: column;
 
   .enum-item {
-    margin-top: 10px;
-    margin-bottom: 10px;
-
     .name {
       width: 40%;
     }
@@ -16,7 +13,6 @@
 
     .remove-button {
       float: right;
-      color: red;
     }
 
     .separator {

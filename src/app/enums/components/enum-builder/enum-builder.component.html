@@ -1,8 +1,10 @@
+<h2>Values</h2>
 <div class="values-container">
   <div class="enum-item" *ngFor="let item of items">
     <mat-form-field class="name">
       <input matInput
              [(ngModel)]="item.name"
+             (blur)="capitalizeName(item)"
              placeholder="Name"
              name="Name"
              required>
@@ -19,7 +21,7 @@
              required>
     </mat-form-field>
 
-    <button mat-icon-button class="remove-button" (click)="removeItem(item)">
+    <button mat-icon-button class="remove-button" tabIndex="-1" (click)="removeItem(item)">
       <mat-icon>clear</mat-icon>
     </button>
   </div>

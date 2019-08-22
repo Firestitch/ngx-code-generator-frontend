@@ -3,6 +3,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { capitalize } from '@angular-devkit/core/src/utils/strings';
 
 
 @Component({
@@ -48,6 +49,14 @@ export class EnumBuilderComponent implements OnInit, ControlValueAccessor {
 
     if (itemIndex > -1) {
       this.items.splice(itemIndex, 1);
+    }
+  }
+
+  public capitalizeName(item) {
+    item.name = capitalize(item.name);
+
+    if (!item.value && item.name) {
+      item.value = item.name.toLowerCase();
     }
   }
 

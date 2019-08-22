@@ -17,14 +17,14 @@
       </mat-form-field>
 
       <app-enum-builder [(ngModel)]="model.enums" name="enums"></app-enum-builder>
-    </mat-card-content>
 
-    <mat-card-actions>
-      <button mat-raised-button color="primary"
-              [disabled]="moduleForm.invalid">GENERATE</button>
-      <div class="spinner" *ngIf="loading">
-        <mat-spinner [diameter]="22"></mat-spinner>
+      <div class="actions">
+        <button mat-raised-button color="primary"
+                [disabled]="moduleForm.invalid">GENERATE</button>
+        <div class="spinner" *ngIf="loading">
+          <mat-spinner [diameter]="22"></mat-spinner>
+        </div>
       </div>
-    </mat-card-actions>
+    </mat-card-content>
   </mat-card>
 </form>
