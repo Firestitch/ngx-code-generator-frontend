@@ -20,10 +20,14 @@ export class ConstService {
   }
 
   public getEnumDetails(enumPath: string) {
-    return this._http.get('/generate/enum-keys-list', {
-      params: {
-        enumPath: enumPath
-      }
-    });
+    if (environment.production) {
+      return this._http.get('/generate/enum-keys-list', {
+        params: {
+          enumPath: enumPath
+        }
+      });
+    } else {
+      return of({"name":"Visitors","members":["Active","Closed"]});
+    }
   }
 }

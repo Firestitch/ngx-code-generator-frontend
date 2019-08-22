@@ -73,8 +73,10 @@ export class ConstBuilderComponent implements OnInit, OnChanges, ControlValueAcc
       .subscribe((resource) => {
         this.enumData = resource;
 
-        this.items = new Array(this.enumData.members.length);
-        this.items.fill('');
+        this.items = [];
+        this.enumData.members.forEach((member) => {
+          this.items.push(member);
+        });
       });
   }
 

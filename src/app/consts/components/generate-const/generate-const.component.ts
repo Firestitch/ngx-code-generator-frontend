@@ -9,6 +9,9 @@ import {
 } from '@angular/core';
 
 import { NgForm } from '@angular/forms';
+
+import * as pluralize from 'pluralize';
+
 import { ConstService } from '../../services';
 
 
@@ -63,6 +66,13 @@ export class GenerateConstComponent implements OnInit, AfterViewInit {
       .subscribe((response) => {
         this.enums = response;
       });
+  }
+
+  public enumSelected(event) {
+    if (!this.model.name && event && event.enumFile) {
+      const name = event.enumFile.replace('.enum.ts', '');
+      this.model.name = pluralize(name);
+    }
   }
 
   public setEnumData(data) {

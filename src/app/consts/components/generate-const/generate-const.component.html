@@ -12,6 +12,7 @@
       <app-enums-list
         *ngIf="model.module && model.module.modulePath"
         [(ngModel)]="model.enum"
+        (ngModelChange)="enumSelected($event)"
         [enums]="enums"
         name="enum">
       </app-enums-list>
@@ -31,14 +32,14 @@
                          (enumDataChange)="setEnumData($event)"
                          name="enums">
       </app-const-builder>
-    </mat-card-content>
 
-    <mat-card-actions>
-      <button mat-raised-button color="primary"
-              [disabled]="moduleForm.invalid">GENERATE</button>
-      <div class="spinner" *ngIf="loading">
-        <mat-spinner [diameter]="22"></mat-spinner>
+      <div class="actions">
+        <button mat-raised-button color="primary"
+                [disabled]="moduleForm.invalid">GENERATE</button>
+        <div class="spinner" *ngIf="loading">
+          <mat-spinner [diameter]="22"></mat-spinner>
+        </div>
       </div>
-    </mat-card-actions>
+    </mat-card-content>
   </mat-card>
 </form>

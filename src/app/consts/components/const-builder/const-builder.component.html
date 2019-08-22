@@ -1,3 +1,4 @@
+<h2>Names</h2>
 <div class="values-container" *ngIf="enumData">
   <fs-label-field>
     <fs-label>
@@ -15,9 +16,9 @@
       Name
     </fs-label>
 
-    <ng-container *ngFor="let member of enumData.members; let index=index; trackBy: itemsTrackByFn">
+    <ng-container *ngFor="let item of items; let index=index; trackBy: itemsTrackByFn">
       <mat-form-field>
-        <input matInput (keyup)="setItemValue($event, index)" required>
+        <input matInput (keyup)="setItemValue($event, index)" [ngModel]="item" required>
       </mat-form-field>
     </ng-container>
   </fs-label-field>
