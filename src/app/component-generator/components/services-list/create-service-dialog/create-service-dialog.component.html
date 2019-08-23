@@ -4,10 +4,13 @@
   <div class="form">
       <app-modules-list
         [(module)]="model.module"
-        (moduleChange)="moduleChanged()"></app-modules-list>
+        (moduleChange)="moduleChanged()"
+        [showCreateButton]="false"
+      >
+      </app-modules-list>
 
       <mat-form-field *ngIf="!hidePath">
-        <mat-select [(ngModel)]="model.subdirectory" placeholder="Path">
+        <mat-select [(ngModel)]="model.subdirectory" placeholder="Type">
           <mat-option [value]="'/data'">Data</mat-option>
           <mat-option [value]="'/services'">Generic</mat-option>
         </mat-select>
@@ -25,6 +28,6 @@
       </mat-form-field>
     <!--</form>-->
   </div>
-  <button mat-raised-button color="primary" (click)="generate()">CREATE</button>
+  <button mat-button color="primary" (click)="generate()">CREATE</button>
   <button mat-button mat-dialog-close>CANCEL</button>
 </div>

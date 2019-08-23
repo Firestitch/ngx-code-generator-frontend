@@ -37,6 +37,7 @@ export class ModulesListComponent implements OnInit, OnChanges, ControlValueAcce
   @Input() public modules: ModuleInterface[];
 
   @Input() public module: ModuleInterface;
+  @Input() public showCreateButton = true;
   @Output() public moduleChange = new EventEmitter();
 
   public onChange: any = () => {};
