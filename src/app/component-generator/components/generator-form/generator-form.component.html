@@ -12,8 +12,8 @@
         >
           <mat-option [value]="'basic'">Basic Component</mat-option>
           <mat-option [value]="'list'">List</mat-option>
-          <mat-option [value]="'list-create-edit'">List, Create&Edit</mat-option>
-          <mat-option [value]="'create-edit'">Create&Edit</mat-option>
+          <mat-option [value]="'list-create-edit'">List, Create & Edit</mat-option>
+          <mat-option [value]="'create-edit'">Create & Edit</mat-option>
         </mat-select>
       </mat-form-field>
 
@@ -110,77 +110,15 @@
 
       </ng-container>
 
-      <!--<div class="group">
-        <mat-form-field *ngIf="model.interfacePattern && isCreateEditList">
-          <input matInput
-                 [(ngModel)]="model.singularComponentName"
-                 (ngModelChange)="changedSingularComponent()"
-                 placeholder="Singular Component Name"
-                 name="singularComponentName" #singularComponentName="ngModel" required>
-          <mat-error *ngIf="singularComponentName.invalid"> Singular Component Name is required </mat-error>
-        </mat-form-field>
-
-        <mat-form-field *ngIf="model.interfacePattern !== null && !isCreateEdit">
-          <input matInput
-                 [(ngModel)]="model.pluralComponentName"
-                 (ngModelChange)="changedPluralComponent()"
-                 placeholder="Component Name"
-                 name="componentName" #componentName="ngModel" required>
-          <mat-error *ngIf="componentName.invalid"> Component Name is required </mat-error>
-        </mat-form-field>
-
-        <mat-form-field *ngIf="model.interfacePattern !== null && isCreateEdit">
-          <input matInput
-                 [(ngModel)]="model.singularComponentName"
-                 (ngModelChange)="changedSingularComponent()"
-                 placeholder="Component Name"
-                 name="componentName" #componentName="ngModel" required>
-          <mat-error *ngIf="componentName.invalid">Component Name is required </mat-error>
-        </mat-form-field>
+      <div class="actions">
+        <button mat-raised-button color="primary"
+                [disabled]="moduleForm.invalid">
+          GENERATE
+        </button>
+        <div class="spinner" *ngIf="loading">
+          <mat-spinner [diameter]="22"></mat-spinner>
+        </div>
       </div>
-
-      <app-services-list *ngIf="!isBasicPattern"
-                         [(service)]="model.service"
-                         [services]="services"
-                         [modules]="modules"></app-services-list>
-
-      <div class="group" *ngIf="model.service && !isBasicPattern">
-        <mat-form-field *ngIf="isCreateEdit">
-          <input matInput
-                 [(ngModel)]="model.singularModelName"
-                 placeholder="Model Name"
-                 name="singularModelName" #ModelName="ngModel" required="!isBasicPattern">
-          <mat-error *ngIf="ModelName.invalid"> Model Name is required </mat-error>
-        </mat-form-field>
-
-        <mat-form-field *ngIf="!isCreateEdit">
-          <input matInput
-                 [(ngModel)]="model.singularModelName"
-                 (ngModelChange)="changedSingularModel()"
-                 placeholder="Singular Model Name"
-                 name="singularModelName" #singularModelName="ngModel" required="!isBasicPattern">
-          <mat-error *ngIf="singularModelName.invalid"> Singular Model Name is required </mat-error>
-        </mat-form-field>
-
-
-        <mat-form-field *ngIf="!isCreateEdit">
-          <input matInput
-                 [(ngModel)]="model.pluralModelName"
-                 (blur)="onPluralModelBlur()"
-                 placeholder="Plural Model Name"
-                 name="pluralModelName" #pluralModelName="ngModel" required="!isCreateEdit && !isBasicPattern">
-          <mat-error *ngIf="pluralModelName.invalid"> Plural Model Name is required </mat-error>
-        </mat-form-field>-->
-
-    <!--  </div>-->
     </mat-card-content>
-
-    <mat-card-actions>
-      <button mat-raised-button color="primary"
-              [disabled]="moduleForm.invalid">GENERATE</button>
-      <div class="spinner" *ngIf="loading">
-        <mat-spinner [diameter]="22"></mat-spinner>
-      </div>
-    </mat-card-actions>
   </mat-card>
 </form>
