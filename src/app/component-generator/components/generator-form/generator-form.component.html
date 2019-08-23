@@ -77,8 +77,9 @@
 
 
       <ng-container *ngIf="hasListInterface || hasCreateEditInterface">
-        <h2>Model & data</h2>
+        <h2>Model & Data</h2>
         <app-services-list [(ngModel)]="model.service"
+                           (ngModelChange)="serviceChanged($event)"
                            [services]="services"
                            name="service">
         </app-services-list>
