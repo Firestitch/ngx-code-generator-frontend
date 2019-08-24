@@ -28,9 +28,10 @@ export class CreateServiceDialogComponent {
 
   public generate() {
     this._servicesService.generateService(this.model).subscribe((res) => {
+      const type = (this.model.subdirectory === '/data') ? 'data' : 'service';
       const service = {
         servicePath: `${this.model.module.modulePath}${this.model.subdirectory}`,
-        singularName: `${this.model.singularName + '.service.ts'}`,
+        singularName: `${this.model.singularName + '.' + type + '.ts'}`,
       };
 
       this.dialogRef.close(service);
