@@ -1,9 +1,12 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { ModuleInterface } from '@libs/modules-list';
-import { ServicesService } from '../../../services';
+import { FsProgressService } from '@firestitch/progress';
+import { FsMessage } from '@firestitch/message';
 
 import * as pluralize from 'pluralize';
+import { ServicesService } from '../../../services';
+
 
 @Component({
   selector: 'app-create-service-dialog',
@@ -21,21 +24,35 @@ export class CreateServiceDialogComponent {
 
   public hidePath = false;
 
-  constructor(public dialogRef: MatDialogRef<CreateServiceDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: { modules: ModuleInterface[], services: any[] },
-              private _servicesService: ServicesService) {
+  constructor(
+    public dialogRef: MatDialogRef<CreateServiceDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { modules: ModuleInterface[], services: any[] },
+    private _servicesService: ServicesService,
+    private _progressService: FsProgressService,
+    private _message: FsMessage,
+  ) {
   }
 
   public generate() {
-    this._servicesService.generateService(this.model).subscribe((res) => {
-      const type = (this.model.subdirectory === '/data') ? 'data' : 'service';
-      const service = {
-        servicePath: `${this.model.module.modulePath}${this.model.subdirectory}`,
-        singularName: `${this.model.singularName + '.' + type + '.ts'}`,
-      };
+    const progressDialog = this._progressService.open();
 
-      this.dialogRef.close(service);
-    });
+    this._servicesService.generateService(this.model).subscribe(
+      (res) => {
+        const type = (this.model.subdirectory === '/data') ? 'data' : 'service';
+        const service = {
+          servicePath: `${this.model.module.modulePath}${this.model.subdirectory}`,
+          singularName: `${this.model.singularName + '.' + type + '.ts'}`,
+        };
+
+        progressDialog.complete();
+
+        this.dialogRef.close(service);
+      },
+      (response) => {
+        progressDialog.close();
+        this._message.error(response.error.message || response.body.error);
+      }
+      );
   }
 
   public changedSingularName() {

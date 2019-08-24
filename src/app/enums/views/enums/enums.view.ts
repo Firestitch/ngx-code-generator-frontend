@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FsMessage } from '@firestitch/message';
+import { FsProgressService } from '@firestitch/progress';
 
 
 @Component({
@@ -17,22 +18,28 @@ export class EnumsView {
   constructor(
     private _http: HttpClient,
     private _message: FsMessage,
+    private _progressService: FsProgressService,
   ) {}
 
   public save(data) {
     this.enumPath = '';
     this.code = '';
 
+    const progressDialog = this._progressService.open();
+
     this._http.post('/generate/enum', data)
       .subscribe((response: { code: string, path: string }) => {
           this.loading = false;
           this.code = response.code;
           this.enumPath = response.path;
+          progressDialog.complete();
         },
         (response) => {
           this.loading = false;
           this.enumPath = '';
           this.code = '';
+
+          progressDialog.close();
           this._message.error(response.error.message || response.body.error);
         });
   }

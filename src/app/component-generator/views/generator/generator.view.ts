@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FsMessage } from '@firestitch/message';
+import { FsProgressService } from '@firestitch/progress';
 
 @Component({
   templateUrl: './generator.view.html',
   styleUrls: [ './generator.view.scss' ]
 })
 export class GeneratorView {
-
-  public loading = false;
   public formData = null;
   public resultLogs: string;
   public error: string;
@@ -17,6 +16,7 @@ export class GeneratorView {
   constructor(
     private _http: HttpClient,
     private _message: FsMessage,
+    private _progressService: FsProgressService,
   ) {}
 
   public formDataChange(data) {
@@ -24,15 +24,16 @@ export class GeneratorView {
   }
 
   public generate() {
-    this.loading = true;
+    const progressDialog = this._progressService.open();
+
     this._http.post('/generate', this.formData)
       .subscribe((response: { message: string }) => {
-        this.loading = false;
+        progressDialog.complete();
         this.resultLogs = response.message;
         this.activeTab = 1;
       },
       (response) => {
-        this.loading = false;
+        progressDialog.close();
         this._message.error(response.error.message || response.body.error);
       });
   }

@@ -1,5 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+
+import { FsProgressService } from '@firestitch/progress';
+import { FsMessage } from '@firestitch/message';
+
 import { ModuleInterface } from '../../../interfaces/';
 import { ModulesService } from '../../../services/modules.service';
 
@@ -20,9 +24,13 @@ export class CreateModuleDialogComponent implements OnInit {
     routing: true
   };
 
-  constructor(public dialogRef: MatDialogRef<CreateModuleDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: { rootModule: ModuleInterface },
-              private _generatorService: ModulesService) {
+  constructor(
+    public dialogRef: MatDialogRef<CreateModuleDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { rootModule: ModuleInterface },
+    private _generatorService: ModulesService,
+    private _progressService: FsProgressService,
+    private _message: FsMessage,
+  ) {
   }
 
   public ngOnInit() {
@@ -30,18 +38,27 @@ export class CreateModuleDialogComponent implements OnInit {
   }
 
   public generate() {
-    this._generatorService.generateModule(this.model).subscribe((res) => {
-      const modulePath = this.model.module.modulePath + '/' + this.model.name;
-      const moduleName = this.model.name + '.module.ts';
+    const progressDialog = this._progressService.open();
 
-      const module = {
-        moduleName: moduleName,
-        modulePath: modulePath,
-        moduleFullPath: modulePath + '/' + moduleName
-      };
+    this._generatorService.generateModule(this.model)
+      .subscribe((res) => {
+        const modulePath = this.model.module.modulePath + '/' + this.model.name;
+        const moduleName = this.model.name + '.module.ts';
 
-      this.dialogRef.close(module);
-    });
+        const module = {
+          moduleName: moduleName,
+          modulePath: modulePath,
+          moduleFullPath: modulePath + '/' + moduleName
+        };
+
+        progressDialog.complete();
+
+        this.dialogRef.close(module);
+      }, (response) => {
+        progressDialog.close();
+        this._message.error(response.error.message || response.body.error);
+      }
+    );
   }
 
 }

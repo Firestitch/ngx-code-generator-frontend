@@ -19,9 +19,6 @@ import * as pluralize from 'pluralize';
 })
 export class GeneratorFormComponent implements OnInit, AfterViewInit {
 
-  @Input()
-  public loading = false;
-
   @Output()
   public formChanged = new EventEmitter<any>();
 
