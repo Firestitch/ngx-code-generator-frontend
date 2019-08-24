@@ -84,7 +84,7 @@
                            name="service">
         </app-services-list>
 
-        <ng-container *ngIf="hasListInterface">
+        <ng-container *ngIf="hasListInterface || hasCreateEditInterface">
           <mat-form-field>
             <input matInput
                    [(ngModel)]="model.singularModelName"

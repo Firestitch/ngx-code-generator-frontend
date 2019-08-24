@@ -4,6 +4,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ConstService } from '../../services';
+import { delay } from 'rxjs/operators';
 
 
 @Component({
@@ -58,25 +59,24 @@ export class ConstBuilderComponent implements OnInit, OnChanges, ControlValueAcc
           this.enumData = null;
         }
     }
-    // if (changes.enum) {
-    //   if (changes.enum.currentValue) {
-    //     this.items = new Array(changes.enum.currentValue.members.length);
-    //     this.items.fill('');
-    //   } else {
-    //     this.items = [];
-    //   }
-    // }
   }
 
   public loadEnumDetails() {
     this.constsService.getEnumDetails(this.enum.enumFullPath)
+      .pipe(
+        delay(100) // crutch
+      )
       .subscribe((resource) => {
         this.enumData = resource;
 
         this.items = [];
-        this.enumData.members.forEach((member) => {
+        this.enumData.members.forEach((member, index) => {
           this.items.push(member);
+
+          this.constValue[index] = member;
         });
+
+        this.writeValue(this.constValue);
       });
   }
 
