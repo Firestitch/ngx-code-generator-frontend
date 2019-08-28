@@ -33,6 +33,7 @@ export class GeneratorFormComponent implements OnInit, AfterViewInit {
     module: null,
     service: null,
     componentName: null,
+    relatedParentType: null,
     createEditComponentName: null,
     interfacePattern: null,
     createEditInterfacePattern: null,
@@ -103,5 +104,26 @@ export class GeneratorFormComponent implements OnInit, AfterViewInit {
       this.model.pluralModelName = pluralize(name);
     }
   }
+
+  // private _clearModel() {
+  //   this.model.relatedParentType = null;
+  //   this.model.createEditComponentName = null;
+  //   this.model.createEditInterfacePattern = null;
+  //   this.model.c
+  //   return {
+  //     module: null,
+  //     service: null,
+  //     componentName: null,
+  //     relatedParentType: null,
+  //     createEditComponentName: null,
+  //     interfacePattern: null,
+  //     createEditInterfacePattern: null,
+  //     singularComponentName: null,
+  //     pluralComponentName: null,
+  //     singularModelName: null,
+  //     pluralModelName: null,
+  //     componentType: null,
+  //   };
+  // }
 
 }

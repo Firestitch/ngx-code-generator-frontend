@@ -10,7 +10,11 @@ import { FsAutocompleteModule } from '@firestitch/autocomplete';
 
 import { throwIfAlreadyLoaded } from '../core/module-import-guard';
 
-import { GeneratorPreviewComponent } from './generator-preview';
+import {
+  BasicPatternComponent,
+  CreateEditComponent,
+  GeneratorPreviewComponent,
+} from './generator-preview';
 import { GeneratorLogsComponent, HighlightStatusDirective } from './generator-logs';
 import { GeneratorCodeComponent } from './generator-code';
 import { DasherizePipe, ClassifyPipe } from './shared';
@@ -38,6 +42,8 @@ import { FsLabelModule } from '@firestitch/label';
     GeneratorPreviewComponent,
     GeneratorLogsComponent,
     GeneratorCodeComponent,
+    BasicPatternComponent,
+    CreateEditComponent,
     HighlightStatusDirective,
     DasherizePipe,
     ClassifyPipe,

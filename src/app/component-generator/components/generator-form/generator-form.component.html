@@ -17,7 +17,7 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field>
+      <mat-form-field *ngIf="(hasListInterface && hasCreateEditInterface) || !hasCreateEditInterface">
         <mat-select [(ngModel)]="model.componentType"
                     placeholder="Component Type"
                     name="componentType"
@@ -37,7 +37,7 @@
         <h2>List Component</h2>
       </ng-container>
 
-      <mat-form-field>
+      <mat-form-field *ngIf="model.interfacePattern === 'basic' || hasListInterface">
         <input matInput
                [(ngModel)]="model.componentName"
                placeholder="Component Name"
@@ -73,6 +73,29 @@
             <mat-option [value]="'dialog'">Dialog</mat-option>
           </mat-select>
         </mat-form-field>
+
+        <ng-container *ngIf="!hasListInterface && model.createEditInterfacePattern === 'dialog'">
+          <mat-form-field>
+            <mat-select [(ngModel)]="model.relatedParentType"
+                        placeholder="Related Parent Type"
+                        name="relatedParentType"
+                        required
+            >
+              <mat-option [value]="'component'">Component</mat-option>
+              <mat-option [value]="'view'">View</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput
+                   [(ngModel)]="model.componentName"
+                   placeholder="Related Parent Name"
+                   name="componentName"
+                   #componentName="ngModel"
+            >
+            <mat-hint align="start"><strong>Triggers the opening of the dialog</strong> </mat-hint>
+            <mat-error *ngIf="componentName.invalid"> Name is required </mat-error>
+          </mat-form-field>
+        </ng-container>
       </ng-container>
 
 

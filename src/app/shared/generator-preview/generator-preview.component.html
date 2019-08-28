@@ -6,99 +6,18 @@
           <mat-icon>folder</mat-icon>
           <span>{{params.module.modulePath}}</span>
         </div>
-        <div class="level" *ngIf="params.componentType">
-          <div class="folder">
-            <mat-icon>folder</mat-icon>
-            <ng-container [ngSwitch]="params.componentType">
-              <span *ngSwitchCase="'component'">/components</span>
-              <span *ngSwitchCase="'view'">/views</span>
+        <div class="level">
+          <ng-container [ngSwitch]="params.interfacePattern">
+            <app-basic-pattern *ngSwitchCase="'basic'" [params]="params"></app-basic-pattern>
+            <app-basic-pattern *ngSwitchCase="'list'" [params]="params"></app-basic-pattern>
+            <app-create-edit-pattern *ngSwitchCase="'create-edit'" [params]="params"></app-create-edit-pattern>
+
+            <ng-container *ngSwitchCase="'list-create-edit'">
+              <app-basic-pattern [params]="params"></app-basic-pattern>
+              <app-create-edit-pattern [params]="params"></app-create-edit-pattern>
             </ng-container>
-            <!--<span>{{params.pluralComponentName | dasherize}}</span>-->
-          </div>
-
-          <div class="level" *ngIf="params.componentName">
-            <div class="folder">
-              <mat-icon>folder</mat-icon>
-              <span>{{params.componentName | dasherize}}</span>
-            </div>
-
-            <div class="level">
-              <ng-container *ngIf="params.createEditComponentName && hasCreateEditInterface">
-                <div class="folder">
-                  <mat-icon>folder</mat-icon>
-                  <span>{{params.createEditComponentName | dasherize}}</span>
-                </div>
-
-                <div class="level" *ngIf="params.createEditComponentName">
-                  <div class="file">
-                    <mat-icon>insert_drive_file</mat-icon>
-                    <span>{{ params.createEditComponentName | dasherize }}.component.ts</span>
-                  </div>
-                  <div class="file">
-                    <mat-icon>insert_drive_file</mat-icon>
-                    <span>{{ params.createEditComponentName | dasherize }}.component.html</span>
-                  </div>
-                  <div class="file">
-                    <mat-icon>insert_drive_file</mat-icon>
-                    <span>{{ params.createEditComponentName | dasherize }}.component.scss</span>
-                  </div>
-                </div>
-              </ng-container>
-              <ng-container *ngIf="!(hasCreateEditInterface && !hasListInterface)">
-                <div class="file">
-                  <mat-icon>insert_drive_file</mat-icon>
-                  <span>{{ params.componentName | dasherize }}.component.ts</span>
-                </div>
-                <div class="file">
-                  <mat-icon>insert_drive_file</mat-icon>
-                  <span>{{ params.componentName | dasherize }}.component.html</span>
-                </div>
-                <div class="file">
-                  <mat-icon>insert_drive_file</mat-icon>
-                  <span>{{ params.componentName | dasherize }}.component.scss</span>
-                </div>
-              </ng-container>
-            </div>
-          </div>
+          </ng-container>
         </div>
-
-        <!-- Full/Dialog -->
-        <!--<div class="level" *ngIf="(isFullCreateEdit || isDialog) && params.singularComponentName && !isCreateEdit">
-          <div class="folder">
-            <mat-icon>folder</mat-icon>
-            <span>{{ params.singularComponentName | dasherize}}</span>
-          </div>
-          <div class="level">
-            <div class="file">
-              <mat-icon>insert_drive_file</mat-icon>
-              <span>{{ params.singularComponentName | dasherize }}.component.ts</span>
-            </div>
-            <div class="file">
-              <mat-icon>insert_drive_file</mat-icon>
-              <span>{{ params.singularComponentName | dasherize}}.component.html</span>
-            </div>
-            <div class="file">
-              <mat-icon>insert_drive_file</mat-icon>
-              <span>{{ params.singularComponentName | dasherize}}.component.scss</span>
-            </div>
-          </div>
-        </div>
--->
-
-        <!-- /Service -->
-        <!--<div class="level" *ngIf="params.service && params.service.type === 'new'">
-          <div class="folder">
-            <mat-icon>folder</mat-icon>
-            <span>{{ serviceSubdirectory | dasherize }}</span>
-          </div>
-          <div class="level">
-            <div class="file">
-              <mat-icon>insert_drive_file</mat-icon>
-              <span>{{ params.service.singularName | dasherize }}</span>
-            </div>
-          </div>
-        </div>-->
-
       </div>
     </div>
   </ng-container>
@@ -106,4 +25,5 @@
   <ng-template #noModule>
     <div>Chose target module</div>
   </ng-template>
+
 </div>
