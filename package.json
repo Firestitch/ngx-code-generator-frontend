@@ -30,6 +30,8 @@
     "@ngx-loading-bar/http-client": "^4.2.0",
     "angular-in-memory-web-api": "^0.6.1",
     "core-js": "^2.5.4",
+    "fuse.js": "^3.4.5",
+    "fuzzy-search": "^3.0.1",
     "lodash-es": "^4.17.15",
     "ngx-pipes": "^2.3.5",
     "ngx-toastr": "^10.1.0",

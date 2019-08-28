@@ -9,15 +9,13 @@ export class ServiceListItemPipe implements PipeTransform {
     let path = '';
 
     if (value) {
-      if (value.servicePath.indexOf('src/') === 0) {
-        path += value.servicePath.replace('src/', '');
-      } else if (value.servicePath.indexOf('/src/') === 0) {
-        path += value.servicePath.replace('/src/', '');
+      if (value.fullPath.indexOf('src/') === 0) {
+        path = value.fullPath.replace('src/', '');
+      } else if (value.fullPath.indexOf('/src/') === 0) {
+        path = value.fullPath.replace('/src/', '');
       }
 
-      path += '/' + value.singularName.replace('.ts', '');
-
-      return path;
+      return path.replace('.ts', '');
     }
 
     return '-';

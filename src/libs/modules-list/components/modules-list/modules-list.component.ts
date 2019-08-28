@@ -13,6 +13,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { FsMessage } from '@firestitch/message';
 
 import { of } from 'rxjs';
+import FuzzySearch from 'fuzzy-search';
 
 import { ModuleInterface } from '../../interfaces/';
 import { CreateModuleDialogComponent } from './create-module-dialog/';
@@ -44,6 +45,7 @@ export class ModulesListComponent implements OnInit, OnChanges, ControlValueAcce
   public onTouch: any = () => {};
 
   public loading = true;
+  public fuzzer: FuzzySearch;
 
   constructor(
     private _modulesService: ModulesService,
@@ -64,12 +66,8 @@ export class ModulesListComponent implements OnInit, OnChanges, ControlValueAcce
   public fetch = (kw) => {
     if (this.modules) {
       if (!!kw) {
-        const kwParts = kw.split(' ');
-
-        const matchedModules = this.modules.filter((module) => {
-          return kwParts.every((part) => module.moduleFullPath.indexOf(part) > -1);
-        });
-        return of(matchedModules);
+        const keyword = kw.replace(' ', '');
+        return of(this.fuzzer.search(keyword));
       } else {
         return of(this.modules);
       }
@@ -126,6 +124,7 @@ export class ModulesListComponent implements OnInit, OnChanges, ControlValueAcce
       .subscribe((response: any) => {
         this.loading = false;
         this.modules = response.modules;
+        this.fuzzer = new FuzzySearch(this.modules, ['moduleFullPath']);
       },
         (response) => {
           this._message.error(response.error.message || response.body.error);

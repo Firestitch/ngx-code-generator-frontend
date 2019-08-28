@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material';
 import { of } from 'rxjs';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
+import FuzzySearch from 'fuzzy-search';
 
 @Component({
   selector: 'app-services-list',
@@ -18,39 +19,29 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   ]
 })
 export class ServicesListComponent implements ControlValueAccessor {
-  constructor(private _dialog: MatDialog) {}
+  @Input()
+  public required;
 
-  @Input() public required;
+  @Input()
+  public service;
 
   @Input()
   set services(val) {
-    this.loading = !val;
-
-    if (val) {
-      this._sortServices(val);
-
-      this._services = val.reduce((acc, group) => {
-        group.services.forEach((service) => {
-          acc.push(service);
-        });
-
-        return acc;
-      }, []);
-
-    } else {
-      this._services = val;
-    }
+    this._initServices(val);
   }
 
-  @Input() public service;
-  @Output() public serviceChange = new EventEmitter();
+  @Output()
+  public serviceChange = new EventEmitter();
 
   public loading = true;
 
   public onChange: any = () => {};
   public onTouch: any = () => {};
+  public fuzzer: FuzzySearch;
 
   private _services;
+
+  constructor(private _dialog: MatDialog) {}
 
   get services() {
     return this._services;
@@ -59,14 +50,9 @@ export class ServicesListComponent implements ControlValueAccessor {
   public fetch = (kw) => {
     if (this.services) {
       if (!!kw) {
-        const kwParts = kw.split(' ');
+        const keyword = kw.replace(' ', '');
 
-        const matchedModules = this.services.filter((service) => {
-          return kwParts.every((part) => {
-            return service.servicePath.indexOf(part) > -1 || service.singularName.indexOf(part) > -1;
-          });
-        });
-        return of(matchedModules);
+        return of(this.fuzzer.search(keyword));
       } else {
         return of(this.services);
       }
@@ -76,15 +62,13 @@ export class ServicesListComponent implements ControlValueAccessor {
   public displayWith = (data) => {
     if (data) {
       let path = '';
-      if (data.servicePath.indexOf('src/') === 0) {
-        path += data.servicePath.replace('src/', '');
-      } else if (data.servicePath.indexOf('/src/') === 0) {
-        path += data.servicePath.replace('/src/', '');
+      if (data.fullPath.indexOf('src/') === 0) {
+        path = data.fullPath.replace('src/', '');
+      } else if (data.fullPath.indexOf('/src/') === 0) {
+        path = data.fullPath.replace('/src/', '');
       }
 
-      path += '/' + data.singularName.replace('.ts', '');
-
-      return path;
+      return path.replace('.ts', '');
     }
 
     return data;
@@ -146,8 +130,32 @@ export class ServicesListComponent implements ControlValueAccessor {
           }
 
           return 0;
-        })
+        });
       }
-    })
+    });
+  }
+
+  private _initServices(val) {
+    this.loading = !val;
+
+    if (val) {
+      this._sortServices(val);
+
+      this._services = val.reduce((acc, group) => {
+        group.services.forEach((service) => {
+          acc.push({
+            ...service,
+            fullPath: service.servicePath + '/' + service.singularName
+          });
+        });
+
+        return acc;
+      }, []);
+
+    } else {
+      this._services = val;
+    }
+
+    this.fuzzer = new FuzzySearch(this._services, ['fullPath']);
   }
 }
