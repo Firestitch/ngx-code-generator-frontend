@@ -10,14 +10,22 @@
                     name="interfacePattern"
                     required
         >
-          <mat-option [value]="'basic'">Basic Component</mat-option>
+          <mat-option [value]="'basic'">Basic</mat-option>
           <mat-option [value]="'list'">List</mat-option>
           <mat-option [value]="'list-create-edit'">List, Create & Edit</mat-option>
           <mat-option [value]="'create-edit'">Create & Edit</mat-option>
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field *ngIf="(hasListInterface && hasCreateEditInterface) || !hasCreateEditInterface">
+      <fs-label-field *ngIf="model.interfacePattern !== 'create-edit'">
+        <fs-label>Options</fs-label>
+        <mat-checkbox [(ngModel)]="model.routableComponent"
+                      name="routableComponent"
+        >
+          Routable
+        </mat-checkbox>
+      </fs-label-field>
+      <!--<mat-form-field *ngIf="(hasListInterface && hasCreateEditInterface) || !hasCreateEditInterface">
         <mat-select [(ngModel)]="model.componentType"
                     placeholder="Component Type"
                     name="componentType"
@@ -26,7 +34,7 @@
           <mat-option [value]="'component'">Component</mat-option>
           <mat-option [value]="'view'">View</mat-option>
         </mat-select>
-      </mat-form-field>
+      </mat-form-field>-->
 
 
       <ng-container *ngIf="model.interfacePattern === 'basic'">
@@ -73,6 +81,15 @@
             <mat-option [value]="'dialog'">Dialog</mat-option>
           </mat-select>
         </mat-form-field>
+
+        <fs-label-field *ngIf="model.createEditInterfacePattern === 'full'">
+          <fs-label>Options</fs-label>
+          <mat-checkbox [(ngModel)]="model.routableCreateComponent"
+                        name="routableCreateComponent"
+          >
+            Routable
+          </mat-checkbox>
+        </fs-label-field>
 
         <ng-container *ngIf="!hasListInterface && model.createEditInterfacePattern === 'dialog'">
           <mat-form-field>

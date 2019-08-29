@@ -41,7 +41,8 @@ export class GeneratorFormComponent implements OnInit, AfterViewInit {
     pluralComponentName: null,
     singularModelName: null,
     pluralModelName: null,
-    componentType: null,
+    routableComponent: false,
+    routableCreateComponent: false,
   };
 
   public services = [];

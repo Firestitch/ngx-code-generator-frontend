@@ -1,10 +1,13 @@
 <ng-container *ngIf="params.interfacePattern === 'create-edit'">
-  <div class="folder" *ngIf="params.createEditInterfacePattern">
+  <div class="folder">
     <mat-icon>folder</mat-icon>
-    <ng-container [ngSwitch]="params.createEditInterfacePattern">
-      <span *ngSwitchCase="'dialog'">/components</span>
-      <span *ngSwitchCase="'full'">/views</span>
+    <ng-container *ngIf="!params.routableCreateComponent || params.createEditInterfacePattern === 'dialog' else viewsType">
+      <span>/components</span>
     </ng-container>
+
+    <ng-template #viewsType>
+      <span>/views</span>
+    </ng-template>
   </div>
 
   <div class="level" *ngIf="params.createEditComponentName">
@@ -13,36 +16,52 @@
 </ng-container>
 
 <ng-container *ngIf="params.interfacePattern === 'list-create-edit'">
-  <ng-container *ngIf="params.componentType === 'component' && params.createEditInterfacePattern === 'full'">
-    <div class="folder">
-      <mat-icon>folder</mat-icon>
-      <span>/views</span>
-    </div>
-    <div class="level">
-      <ng-template [ngTemplateOutlet]="createEdit"></ng-template>
-    </div>
+  <ng-container *ngIf="params.createEditInterfacePattern === 'full'">
+
+    <ng-container *ngIf="!params.routableComponent && params.routableCreateComponent">
+      <div class="folder">
+        <mat-icon>folder</mat-icon>
+        <span>/views</span>
+      </div>
+      <div class="level">
+        <ng-template [ngTemplateOutlet]="createEdit"></ng-template>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="(!params.routableComponent && !params.routableCreateComponent) || (params.routableComponent && params.routableCreateComponent)">
+      <div class="level">
+        <ng-template [ngTemplateOutlet]="createEdit"></ng-template>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="params.routableComponent && !params.routableCreateComponent">
+      <div class="folder">
+        <mat-icon>folder</mat-icon>
+        <span>/components</span>
+      </div>
+      <div class="level">
+        <ng-template [ngTemplateOutlet]="createEdit"></ng-template>
+      </div>
+    </ng-container>
+
   </ng-container>
 
-  <ng-container *ngIf="params.componentType === 'component' && params.createEditInterfacePattern === 'dialog'">
-    <div class="level">
-      <ng-template [ngTemplateOutlet]="createEdit"></ng-template>
-    </div>
-  </ng-container>
+  <ng-container *ngIf="params.createEditInterfacePattern === 'dialog'">
+    <ng-container *ngIf="!params.routableComponent">
+      <div class="level">
+        <ng-template [ngTemplateOutlet]="createEdit"></ng-template>
+      </div>
+    </ng-container>
 
-  <ng-container *ngIf="params.componentType === 'view' && params.createEditInterfacePattern === 'full'">
-    <div class="level">
-      <ng-template [ngTemplateOutlet]="createEdit"></ng-template>
-    </div>
-  </ng-container>
-
-  <ng-container *ngIf="params.componentType === 'view' && params.createEditInterfacePattern === 'dialog'">
-    <div class="folder">
-      <mat-icon>folder</mat-icon>
-      <span>/components</span>
-    </div>
-    <div class="level">
-      <ng-template [ngTemplateOutlet]="createEdit"></ng-template>
-    </div>
+    <ng-container *ngIf="params.routableComponent">
+      <div class="folder">
+        <mat-icon>folder</mat-icon>
+        <span>/components</span>
+      </div>
+      <div class="level">
+        <ng-template [ngTemplateOutlet]="createEdit"></ng-template>
+      </div>
+    </ng-container>
   </ng-container>
 </ng-container>
 

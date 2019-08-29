@@ -1,8 +1,8 @@
-<div class="folder" *ngIf="params.componentType">
+<div class="folder">
   <mat-icon>folder</mat-icon>
-  <ng-container [ngSwitch]="params.componentType">
-    <span *ngSwitchCase="'component'">/components</span>
-    <span *ngSwitchCase="'view'">/views</span>
+  <ng-container [ngSwitch]="params.routableComponent">
+    <span *ngSwitchCase="false">/components</span>
+    <span *ngSwitchCase="true">/views</span>
   </ng-container>
 </div>
 
