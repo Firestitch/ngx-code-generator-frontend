@@ -98,11 +98,13 @@
                         name="relatedParentType"
                         required
             >
+              <mat-option [value]="'none'">None</mat-option>
               <mat-option [value]="'component'">Component</mat-option>
               <mat-option [value]="'view'">View</mat-option>
             </mat-select>
           </mat-form-field>
-          <mat-form-field>
+
+          <mat-form-field *ngIf="model.relatedParentType === 'component' || model.relatedParentType === 'view'">
             <input matInput
                    [(ngModel)]="model.componentName"
                    placeholder="Related Parent Name"
