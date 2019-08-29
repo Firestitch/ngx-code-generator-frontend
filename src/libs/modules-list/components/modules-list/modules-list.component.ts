@@ -127,7 +127,7 @@ export class ModulesListComponent implements OnInit, OnChanges, ControlValueAcce
         this.fuzzer = new FuzzySearch(this.modules, ['moduleFullPath']);
       },
         (response) => {
-          this._message.error(response.error.message || response.body.error);
+          this._message.error(response.error && response.error.message || (response.body && response.body.error) || response.message);
         });
   }
 }

@@ -32,7 +32,9 @@ export class EnumsView {
           this.loading = false;
           this.code = response.code;
           this.enumPath = response.path;
-          progressDialog.complete();
+
+          progressDialog.close();
+          this._message.success('Successfully Generated');
         },
         (response) => {
           this.loading = false;
@@ -40,7 +42,7 @@ export class EnumsView {
           this.code = '';
 
           progressDialog.close();
-          this._message.error(response.error.message || response.body.error);
+          this._message.error(response.error && response.error.message || (response.body && response.body.error) || response.message);
         });
   }
 }

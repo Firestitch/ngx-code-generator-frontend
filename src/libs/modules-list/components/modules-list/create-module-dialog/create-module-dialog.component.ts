@@ -51,12 +51,13 @@ export class CreateModuleDialogComponent implements OnInit {
           moduleFullPath: modulePath + '/' + moduleName
         };
 
-        progressDialog.complete();
+        progressDialog.close();
+        this._message.success('Successfully Generated');
 
         this.dialogRef.close(module);
       }, (response) => {
         progressDialog.close();
-        this._message.error(response.error.message || response.body.error);
+        this._message.error(response.error && response.error.message || (response.body && response.body.error) || response.message);
       }
     );
   }

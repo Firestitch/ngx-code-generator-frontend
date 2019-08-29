@@ -28,13 +28,14 @@ export class GeneratorView {
 
     this._http.post('/generate', this.formData)
       .subscribe((response: { message: string }) => {
-        progressDialog.complete();
+        progressDialog.close();
+        this._message.success('Successfully Generated');
         this.resultLogs = response.message;
         this.activeTab = 1;
       },
       (response) => {
         progressDialog.close();
-        this._message.error(response.error.message || response.body.error);
+        this._message.error(response.error && response.error.message || (response.body && response.body.error) || response.message);
       });
   }
 }
