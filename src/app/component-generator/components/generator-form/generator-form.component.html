@@ -17,14 +17,6 @@
         </mat-select>
       </mat-form-field>
 
-      <fs-label-field *ngIf="model.interfacePattern !== 'create-edit'">
-        <fs-label>Options</fs-label>
-        <mat-checkbox [(ngModel)]="model.routableComponent"
-                      name="routableComponent"
-        >
-          Routable
-        </mat-checkbox>
-      </fs-label-field>
       <!--<mat-form-field *ngIf="(hasListInterface && hasCreateEditInterface) || !hasCreateEditInterface">
         <mat-select [(ngModel)]="model.componentType"
                     placeholder="Component Type"
@@ -54,6 +46,15 @@
                required>
         <mat-error *ngIf="componentName.invalid"> Component Name is required </mat-error>
       </mat-form-field>
+
+      <fs-label-field *ngIf="model.interfacePattern && model.interfacePattern !== 'create-edit'">
+        <fs-label>Options</fs-label>
+        <mat-checkbox [(ngModel)]="model.routableComponent"
+                      name="routableComponent"
+        >
+          Routable
+        </mat-checkbox>
+      </fs-label-field>
 
       <ng-container *ngIf="hasCreateEditInterface">
         <h2>Create & Edit Component</h2>

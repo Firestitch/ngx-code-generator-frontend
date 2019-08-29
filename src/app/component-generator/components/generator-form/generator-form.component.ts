@@ -33,7 +33,7 @@ export class GeneratorFormComponent implements OnInit, AfterViewInit {
     module: null,
     service: null,
     componentName: null,
-    relatedParentType: null,
+    relatedParentType: 'none',
     createEditComponentName: null,
     interfacePattern: null,
     createEditInterfacePattern: null,
