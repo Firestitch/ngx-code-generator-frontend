@@ -61,14 +61,7 @@ export class ServicesListComponent implements ControlValueAccessor {
 
   public displayWith = (data) => {
     if (data) {
-      let path = '';
-      if (data.fullPath.indexOf('src/') === 0) {
-        path = data.fullPath.replace('src/', '');
-      } else if (data.fullPath.indexOf('/src/') === 0) {
-        path = data.fullPath.replace('/src/', '');
-      }
-
-      return path.replace('.ts', '');
+      return data.name;
     }
 
     return data;

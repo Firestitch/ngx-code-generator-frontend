@@ -12,11 +12,7 @@ export class ConstService {
   }
 
   public getEnumsForModule(modulePath: string) {
-    if (environment.production) {
-      return this._http.get('/generate/enums-list', { params: { enumPath: modulePath } });
-    } else {
-      return of([{"enumPath":"src/app/account/enums","enumFile":"visitors.enum.ts","enumFullPath":"src/app/account/enums/visitors.enum.ts"}]);
-    }
+    return this._http.get('/generate/enums-list', { params: { enumPath: modulePath } });
   }
 
   public getEnumDetails(enumPath: string) {

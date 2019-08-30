@@ -60,7 +60,7 @@ export class GenerateConstComponent implements OnInit, AfterViewInit {
   public loadEnums() {
     if (!this.model.module || !this.model.module.modulePath) { return; }
 
-    this.model.module.modulePath = this.model.module.modulePath.replace('/src', 'src');
+    this.model.module.modulePath = this.model.module.modulePath;
 
     this.constsService.getEnumsForModule(this.model.module.modulePath)
       .subscribe((response) => {

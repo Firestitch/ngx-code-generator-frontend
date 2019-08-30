@@ -10,17 +10,10 @@ export class ModuleListItemPipe implements PipeTransform {
     let path = '';
 
     if (value && value.moduleFullPath) {
-      if (value.moduleFullPath.indexOf('src/') === 0) {
-        path = value.moduleFullPath.replace('src/', '');
-      } else if (value.moduleFullPath.indexOf('/src/') === 0) {
-        path = value.moduleFullPath.replace('/src/', '');
-      } else if (value.moduleFullPath.indexOf('src\\') === 0) {
-        path = value.moduleFullPath.replace('src\\', '');
-      } else if (value.moduleFullPath.indexOf('\\src\\') === 0) {
-        path = value.moduleFullPath.replace('\\src\\', '');
-      }
 
-      return path.replace('.ts', '');
+      path = value.name.replace('.ts', '');
+
+      return path;
     }
 
     return '-';

@@ -75,10 +75,8 @@ export class ModulesListComponent implements OnInit, OnChanges, ControlValueAcce
   }
 
   public displayWith = (data) => {
-    if (data && data.moduleFullPath) {
-      return data.moduleFullPath
-        .replace('/src', '')
-        .replace('.ts', '');
+    if (data && data.name) {
+      return data.name;
     }
 
     return '-';
