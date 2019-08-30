@@ -13,6 +13,10 @@ export class ServiceListItemPipe implements PipeTransform {
         path = value.fullPath.replace('src/', '');
       } else if (value.fullPath.indexOf('/src/') === 0) {
         path = value.fullPath.replace('/src/', '');
+      } else if (value.fullPath.indexOf('src\\') === 0) {
+        path = value.fullPath.replace('src\\', '');
+      } else if (value.fullPath.indexOf('\\src\\') === 0) {
+        path = value.fullPath.replace('\\src\\', '');
       }
 
       return path.replace('.ts', '');

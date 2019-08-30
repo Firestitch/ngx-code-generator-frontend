@@ -7,10 +7,20 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class ModuleListItemPipe implements PipeTransform {
   transform(value: any, ...args): any {
 
+    let path = '';
+
     if (value && value.moduleFullPath) {
-      return value.moduleFullPath
-        .replace('/src', '')
-        .replace('.ts', '');
+      if (value.moduleFullPath.indexOf('src/') === 0) {
+        path = value.moduleFullPath.replace('src/', '');
+      } else if (value.moduleFullPath.indexOf('/src/') === 0) {
+        path = value.moduleFullPath.replace('/src/', '');
+      } else if (value.moduleFullPath.indexOf('src\\') === 0) {
+        path = value.moduleFullPath.replace('src\\', '');
+      } else if (value.moduleFullPath.indexOf('\\src\\') === 0) {
+        path = value.moduleFullPath.replace('\\src\\', '');
+      }
+
+      return path.replace('.ts', '');
     }
 
     return '-';
