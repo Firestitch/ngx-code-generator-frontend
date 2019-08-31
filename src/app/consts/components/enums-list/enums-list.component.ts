@@ -47,7 +47,7 @@ export class EnumsListComponent implements ControlValueAccessor {
 
   public displayWith = (data) => {
     if (data) {
-      return data.enumFile;
+      return data.name;
     }
 
     return data;
