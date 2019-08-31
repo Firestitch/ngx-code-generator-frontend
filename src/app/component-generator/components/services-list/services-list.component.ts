@@ -87,6 +87,9 @@ export class ServicesListComponent implements ControlValueAccessor {
         return;
       }
 
+      this.selectService(result);
+      this.service = result;
+
       this.services.push(result);
     });
   }

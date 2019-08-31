@@ -43,12 +43,13 @@ export class CreateModuleDialogComponent implements OnInit {
     this._generatorService.generateModule(this.model)
       .subscribe((res) => {
         const modulePath = this.model.module.modulePath + '/' + this.model.name;
-        const moduleName = this.model.name + '.module.ts';
+        const moduleName = this.model.name + '.module';
 
         const module = {
-          moduleName: moduleName,
+          moduleName: moduleName + '.ts',
           modulePath: modulePath,
-          moduleFullPath: modulePath + '/' + moduleName
+          moduleFullPath: modulePath + '/' + moduleName,
+          name: modulePath.replace(/^src\//, '') + '/' + moduleName
         };
 
         progressDialog.close();

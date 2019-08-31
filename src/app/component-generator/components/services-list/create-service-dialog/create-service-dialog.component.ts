@@ -39,9 +39,12 @@ export class CreateServiceDialogComponent {
     this._servicesService.generateService(this.model).subscribe(
       (res) => {
         const type = (this.model.subdirectory === '/data') ? 'data' : 'service';
+        const servicePath = `${this.model.module.modulePath}${this.model.subdirectory}`;
+        const singularName = `${this.model.singularName + '.' + type}`;
         const service = {
-          servicePath: `${this.model.module.modulePath}${this.model.subdirectory}`,
-          singularName: `${this.model.singularName + '.' + type + '.ts'}`,
+          servicePath: servicePath,
+          singularName: singularName + '.ts',
+          name: servicePath.replace(/^src\//, '') + singularName,
         };
 
         progressDialog.close();
